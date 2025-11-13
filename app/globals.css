@@ -3,13 +3,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Define your custom colors as CSS variables here */
+  --color-primary: #4B0082;
+  --color-accent: #FF7F32;
+  --color-lavender: #F8F6FF;
+  /* Define your custom fonts as CSS variables */
+  --font-playfair: "Playfair Display", serif;
+  --font-poppins: "Poppins", sans-serif;
 }
 
+/* Use the @theme inline directive to map CSS variables to Tailwind utility classes */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins); /* Use Poppins as the default sans font */
+  --font-serif: var(--font-playfair); /* Map playfair to the serif utility */
+
+  /* Map your custom colors */
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  --color-lavender: var(--color-lavender);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +33,9 @@
 }
 
 body {
+  /* Use the CSS variables for the body styles */
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Use the Poppins font as the base for the body */
+  font-family: var(--font-poppins);
 }
