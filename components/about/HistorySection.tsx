@@ -71,11 +71,11 @@ const HistorySection = () => {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Center line for timeline */}
+          {/* Center line */}
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-purple-300"></div>
 
-          {/* Timeline items */}
-          <div className="space-y-12 relative">
+          {/* Timeline Items */}
+          <div className="space-y-16 relative">
             {timelineEvents.map((event, index) => (
               <motion.div
                 key={event.year}
@@ -84,21 +84,21 @@ const HistorySection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`flex flex-col md:flex-row ${
-                  index % 2 === 0
-                    ? "md:flex-row"
-                    : "md:flex-row-reverse"
-                }`}
+                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                } items-center`}
               >
-                {/* Dot */}
+                {/* Dot on the center line */}
                 <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white shadow"></div>
 
-                {/* Card */}
-                <div className="flex-1 md:pr-12 md:pl-0 pl-0 pr-0">
-                  <div
-                    className={`bg-white rounded-lg shadow-lg overflow-hidden ${
-                      index % 2 === 0 ? "md:mr-6" : "md:ml-6"
-                    }`}
-                  >
+                {/* Content card */}
+                <div
+                  className={`flex-1 md:w-1/2 ${
+                    index % 2 === 0
+                      ? "md:pr-24 md:pl-8" // Extra padding for LEFT side
+                      : "md:pl-24 md:pr-8" // Extra padding for RIGHT side
+                  }`}
+                >
+                  <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                     <div className="relative w-full h-48">
                       <Image
                         src={event.image}
@@ -121,7 +121,8 @@ const HistorySection = () => {
                   </div>
                 </div>
 
-                <div className="flex-1"></div>
+                {/* Empty spacer for layout symmetry */}
+                <div className="flex-1 md:w-1/2 hidden md:block"></div>
               </motion.div>
             ))}
           </div>
