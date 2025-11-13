@@ -1,94 +1,57 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-const leadershipTeam = [
+const timelineEvents = [
   {
-    name: 'Dr. James Mwangi',
-    title: 'President',
-    image:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
+    year: "2005",
+    title: "Humble Beginnings",
     description:
-      'Leading with vision and integrity for over 15 years in higher education.',
-    category: 'administration',
+      "Africana College of Professionals was founded with a vision to provide quality education rooted in Christian values.",
+    image:
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
   },
   {
-    name: 'Prof. Sarah Odhiambo',
-    title: 'Academic Dean',
-    image:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=688&q=80',
+    year: "2010",
+    title: "TVETA Accreditation",
     description:
-      'Committed to academic excellence and student success in all programs.',
-    category: 'administration',
+      "Achieved our first major accreditation from the Technical and Vocational Education and Training Authority.",
+    image:
+      "https://images.unsplash.com/photo-1546422401-68b415cbf8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
   },
   {
-    name: 'Dr. Samuel Kimani',
-    title: 'Professor of Business',
-    image:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
+    year: "2014",
+    title: "Campus Expansion",
     description:
-      'Expert in business strategy with extensive industry experience.',
-    category: 'faculty',
+      "Expanded our campus facilities to accommodate growing student enrollment and additional programs.",
+    image:
+      "https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1486&q=80",
   },
   {
-    name: 'Dr. Elizabeth Wangari',
-    title: 'Professor of Ethics',
-    image:
-      'https://images.unsplash.com/photo-1580894732930-0babd100d356?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+    year: "2018",
+    title: "KCPA & KASNEB Recognition",
     description:
-      'Passionate about integrating ethics into professional education.',
-    category: 'faculty',
+      "Received recognition from Kenya College of Professional Accountants and KASNEB, further establishing our academic excellence.",
+    image:
+      "https://images.unsplash.com/photo-1554433607-66b5efe9d304?ixlib=rb-4.0.3&auto=format&fit=crop&w=1364&q=80",
   },
   {
-    name: 'Pastor David Omondi',
-    title: 'Spiritual Mentor',
-    image:
-      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1448&q=80',
+    year: "2022",
+    title: "International Partnerships",
     description:
-      'Guiding students in spiritual growth and character development.',
-    category: 'mentors',
-  },
-  {
-    name: 'Ms. Ruth Njoroge',
-    title: 'Career Development Director',
+      "Established partnerships with international institutions to enhance global learning opportunities for our students.",
     image:
-      'https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
-    description:
-      'Dedicated to helping students transition successfully to professional careers.',
-    category: 'mentors',
-  },
-  {
-    name: 'Mr. Joseph Wafula',
-    title: 'Professor of Technology',
-    image:
-      'https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
-    description:
-      'Innovator in educational technology and digital learning methods.',
-    category: 'faculty',
-  },
-  {
-    name: 'Mrs. Grace Mutua',
-    title: 'Student Affairs Director',
-    image:
-      'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
-    description:
-      'Creating a supportive environment for student growth and development.',
-    category: 'administration',
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
   },
 ];
 
-const LeadershipSection = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const filteredLeadership =
-    activeFilter === 'all'
-      ? leadershipTeam
-      : leadershipTeam.filter((member) => member.category === activeFilter);
-
+const HistorySection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-purple-50">
       <div className="container mx-auto px-4">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,64 +60,75 @@ const LeadershipSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-            Meet Our Leadership & Faculty
+            Our Journey
           </h2>
           <div className="w-20 h-1 bg-orange-500 mx-auto mb-4"></div>
           <p className="max-w-2xl mx-auto text-gray-700">
-            Our team of dedicated professionals is committed to providing
-            excellent education and mentorship.
+            Since our founding, Africana College has been committed to
+            excellence in education, guided by Christian principles.
           </p>
         </motion.div>
 
-        {/* Filter buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-          {['all', 'administration', 'faculty', 'mentors'].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              className={`px-4 py-2 rounded-full transition-colors ${
-                activeFilter === cat
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-purple-100 text-purple-800 hover:bg-purple-200'
-              }`}
-            >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </button>
-          ))}
-        </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center line for timeline */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-purple-300"></div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredLeadership.map((member, index) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden group"
-            >
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-purple-900 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6 border-t-4 border-orange-500">
-                <h3 className="text-xl font-bold text-purple-900 mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-orange-600 font-medium mb-3">{member.title}</p>
-                <p className="text-gray-600 text-sm">{member.description}</p>
-              </div>
-            </motion.div>
-          ))}
+          {/* Timeline items */}
+          <div className="space-y-12 relative">
+            {timelineEvents.map((event, index) => (
+              <motion.div
+                key={event.year}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`flex flex-col md:flex-row ${
+                  index % 2 === 0
+                    ? "md:flex-row"
+                    : "md:flex-row-reverse"
+                }`}
+              >
+                {/* Dot */}
+                <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-orange-500 border-4 border-white shadow"></div>
+
+                {/* Card */}
+                <div className="flex-1 md:pr-12 md:pl-0 pl-0 pr-0">
+                  <div
+                    className={`bg-white rounded-lg shadow-lg overflow-hidden ${
+                      index % 2 === 0 ? "md:mr-6" : "md:ml-6"
+                    }`}
+                  >
+                    <div className="relative w-full h-48">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={index === 0}
+                      />
+                    </div>
+                    <div className="p-6">
+                      <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-3 py-1 rounded-full mb-2">
+                        {event.year}
+                      </span>
+                      <h3 className="text-xl font-bold text-purple-900 mb-2">
+                        {event.title}
+                      </h3>
+                      <p className="text-gray-700">{event.description}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-1"></div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-export default LeadershipSection;
+export default HistorySection;
