@@ -23,7 +23,7 @@ export const MainHeader = () => {
     <header
       className={`
         fixed left-0 w-full z-40
-        top-[32px]
+        top-8
         bg-white
         shadow-md
         transition-all duration-300
@@ -47,6 +47,7 @@ export const MainHeader = () => {
               height={40}
               className="object-contain rounded-md sm:w-12 sm:h-12"
               priority
+              unoptimized
             />
 
             <motion.span
@@ -118,7 +119,9 @@ export const MainHeader = () => {
           {/* Register button */}
           <div className="flex items-center ml-2 md:ml-4">
             <Link
-              href="/register"
+              href="https://form.jotform.com/253171134791556"
+              target='_blank'
+              rel="noopener noreferrer" 
               className="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold text-xs sm:text-sm transition-all"
             >
               Register
@@ -140,7 +143,7 @@ export const MainHeader = () => {
       {/* Mobile/Medium Slide-In Menu */}
       <div
         className={`
-          lg:hidden fixed top-[32px] left-0 h-full 
+          lg:hidden fixed top-8 left-0 h-full 
           w-[80%] max-w-xs bg-primary text-white shadow-xl
           transform transition-transform duration-300 ease-out
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -212,7 +215,9 @@ export const MainHeader = () => {
           {/* Register button */}
           <div className="mt-6 pt-6 border-t border-white/20">
             <Link
-              href="/register"
+              href="https://form.jotform.com/253171134791556"
+              target='_blank'
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="block bg-white text-primary w-full text-center py-3 rounded-full font-semibold text-base"
             >

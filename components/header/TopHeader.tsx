@@ -14,7 +14,7 @@ export const TopHeader = () => {
     <div
       className="
         fixed top-0 left-0 w-full z-50
-        bg-gradient-to-r from-purple-100 via-purple-50 to-purple-100
+        bg-linear-to-r from-purple-100 via-purple-50 to-purple-100
         border-b border-primary/20
       "
     >

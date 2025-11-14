@@ -87,6 +87,7 @@ export const NewsSection = () => {
                     alt={item.title}
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
                 <div className="p-4 flex-1">
@@ -124,6 +125,7 @@ export const NewsSection = () => {
       alt="Promotional Banner Image"
       fill
       className="object-cover"
+      unoptimized
     />
   </div>
 
