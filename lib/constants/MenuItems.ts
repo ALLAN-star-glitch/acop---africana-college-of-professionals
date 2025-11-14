@@ -4,7 +4,7 @@ export const desktopMenuItems = [
   { label: 'About', href: '/about' },
   { label: 'Courses', href: '/courses' },
   { label: 'Admissions', href: '/dmissions' },
-  { label: 'Masomo Portal', href: '/masomo-portal' },
+  { label: 'Masomo Portal', href: 'https://moodle-200882-0.cloudclusters.net/', external: true },
   { label: 'Contact', href: '#contact' },
 ]
 

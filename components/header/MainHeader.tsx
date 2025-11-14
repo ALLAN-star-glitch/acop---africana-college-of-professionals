@@ -1,109 +1,226 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { MenuIcon, X } from 'lucide-react';
-import { desktopMenuItems } from '@/lib/constants/MenuItems';
+import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import { desktopMenuItems } from '@/lib/constants/MenuItems';
+import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export const MainHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white shadow-sm transition-all duration-300 ${
-        isScrolled ? 'py-2' : 'py-4'
-      }`}
+      className={`
+        fixed left-0 w-full z-40
+        top-[32px]
+        bg-white
+        shadow-md
+        transition-all duration-300
+        ${isScrolled ? 'py-2' : 'py-4'}
+      `}
     >
-      <div className="container mx-auto px-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <a
-              href="#"
-              className={`flex items-center transition-all duration-300 ${isScrolled ? 'scale-90' : ''}`}
+
+          {/* Logo + Animated Title */}
+          <Link
+            href="/"
+            className={`flex items-center space-x-2 sm:space-x-3 transition-all duration-300 ${
+              isScrolled ? 'scale-95' : 'scale-100'
+            }`}
+          >
+            <Image
+              src="/acoplogo.jpg"
+              alt="Africana College of Professionals Logo"
+              width={40}
+              height={40}
+              className="object-contain rounded-md sm:w-12 sm:h-12"
+              priority
+            />
+
+            <motion.span
+              className="hidden md:block text-lg md:text-xl lg:text-2xl font-bold text-primary font-playfair whitespace-nowrap"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: [0, -2, 0, 2, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             >
-              <Image
-                src="/acoplogo.jpg"
-                alt="Africana College of Professionals Logo"
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-              {/* Text visible only on desktop */}
-              <span className="ml-2 text-xl sm:text-2xl font-bold text-primary font-playfair hidden sm:block">
-                Africana College of Professionals
-              </span>
-            </a>
-          </div>
+              Africana College of Professionals
+            </motion.span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {desktopMenuItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="font-medium hover:text-primary transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+          <nav className="hidden lg:flex items-center space-x-8 xl:space-x-10">
+            {desktopMenuItems.map((item) => {
+              const isActive = pathname === item.href;
+
+              // External link opens in new tab
+              if (item.external) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative"
+                  >
+                    <motion.span
+                      className="font-medium text-sm lg:text-base transition-colors text-gray-700 hover:text-primary"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {item.label}
+                    </motion.span>
+                  </a>
+                );
+              }
+
+              return (
+                <Link key={item.label} href={item.href} className="relative">
+                  <motion.span
+                    className={`
+                      font-medium text-sm lg:text-base transition-colors
+                      ${isActive ? 'text-primary' : 'text-gray-700 hover:text-primary'}
+                    `}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {item.label}
+                  </motion.span>
+
+                  {/* Elegant animated underline */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-underline"
+                      className="absolute left-0 right-0 bottom-0 h-0.5 bg-primary rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Desktop Auth Buttons (only show Register, hide login) */}
-          <div className="hidden md:flex items-center">
-            <a
+          {/* Register button */}
+          <div className="flex items-center ml-2 md:ml-4">
+            <Link
               href="/register"
-              className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-semibold text-lg transition-colors"
+              className="bg-primary hover:bg-primary/90 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold text-xs sm:text-sm transition-all"
             >
               Register
-            </a>
+            </Link>
           </div>
 
-          {/* Mobile Register Button */}
-          <div className="md:hidden">
-            <a
-              href="/register"
-              className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-semibold text-lg transition-colors"
+          {/* Mobile/Medium toggle */}
+          <div className="flex items-center gap-2 lg:hidden ml-2">
+            <button
+              className="text-gray-700 focus:outline-none"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
             >
-              Register
-            </a>
+              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-600 focus:outline-none ml-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
-          </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-primary text-white">
-          <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-3">
-              {desktopMenuItems.map((item) => (
-                <a
+      {/* Mobile/Medium Slide-In Menu */}
+      <div
+        className={`
+          lg:hidden fixed top-[32px] left-0 h-full 
+          w-[80%] max-w-xs bg-primary text-white shadow-xl
+          transform transition-transform duration-300 ease-out
+          ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        <div className="flex flex-col h-full p-6">
+          <div className="flex justify-between items-center mb-8">
+            <span className="text-xl font-semibold">Menu</span>
+            <button className="text-white" onClick={() => setMobileMenuOpen(false)}>
+              <X size={28} />
+            </button>
+          </div>
+
+          <nav className="flex flex-col space-y-5">
+            {desktopMenuItems.map((item) => {
+              const isActive = pathname === item.href;
+
+              // Mobile external link
+              if (item.external) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="relative"
+                  >
+                    <motion.span
+                      className={`text-lg font-medium transition-colors hover:text-accent`}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {item.label}
+                    </motion.span>
+                  </a>
+                );
+              }
+
+              return (
+                <Link
                   key={item.label}
                   href={item.href}
-                  className="py-2 hover:text-accent transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="relative"
                 >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
+                  <motion.span
+                    className={`text-lg font-medium transition-colors ${
+                      isActive ? 'text-yellow-300' : 'hover:text-accent'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {item.label}
+                  </motion.span>
+
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-underline-mobile"
+                      className="absolute left-0 right-0 bottom-0 h-0.5 bg-yellow-300 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Register button */}
+          <div className="mt-6 pt-6 border-t border-white/20">
+            <Link
+              href="/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block bg-white text-primary w-full text-center py-3 rounded-full font-semibold text-base"
+            >
+              Register
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
