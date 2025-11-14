@@ -18,32 +18,35 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Africana College of Professionals | Professional Courses & Learning",
-  description: "Join Africana College of Professionals to access top-tier professional courses, scholarships, and career development resources.",
+  description:
+    "Join Africana College of Professionals to access top-tier professional courses, scholarships, and career development resources.",
   keywords: [
     "Africana College",
     "professional courses",
     "career development",
     "scholarships",
     "online learning",
-    "Kenya"
+    "Kenya",
   ].join(", "),
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     title: "Africana College of Professionals",
-    description: "Access professional courses, scholarships, and career growth resources at Africana College of Professionals.",
-    url: "https://acop.co.ke/",
+    description:
+      "Access professional courses, scholarships, and career growth resources at Africana College of Professionals.",
+    // Force all OG URLs to the www domain
+    url: "https://www.acop.co.ke/",
     siteName: "Africana College of Professionals",
     type: "website",
     images: [
       {
-        url: "https://plus.unsplash.com/premium_photo-1682284353484-4e16001c58eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGVkdWNhdGlvbnxlbnwwfHwwfHx8MA%3D%3D",
+        url: "https://www.acop.co.ke/acoplogo.jpg", // absolute URL with www
         width: 1200,
         height: 630,
         alt: "Africana College of Professionals - Featured Image",
       },
     ],
-  },
+  }
 };
 
 export default function RootLayout({
