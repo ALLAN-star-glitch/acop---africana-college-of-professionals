@@ -111,7 +111,7 @@ export const NewsSection = () => {
 <div className="bg-linear-to-br from-accent to-accent/80 rounded-xl shadow-md overflow-hidden text-white p-6 flex flex-col items-center text-center gap-6">
   <div>
     <h3 className="font-playfair text-2xl font-bold mb-4">
-      🎓 January Intake Now Open!
+      🎓 January 2026 Intake - Now Open!
     </h3>
     <p className="mb-6">
       Start Your Purpose Journey with Africana.
@@ -121,7 +121,7 @@ export const NewsSection = () => {
   {/* Large Banner Image */}
   <div className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden">
     <Image
-      src="/banner.jpg"
+      src="/acop2026intake.jpg"
       alt="Promotional Banner Image"
       fill
       className="object-cover"

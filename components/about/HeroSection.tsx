@@ -69,7 +69,9 @@ const HeroSection = () => {
             }}
           >
             <a
-              href="#"
+              href="https://form.jotform.com/253171134791556"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-md transition-colors shadow-lg"
             >
               Join Africana Today

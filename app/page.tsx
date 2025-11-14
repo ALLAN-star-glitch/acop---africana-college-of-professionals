@@ -10,13 +10,14 @@ export default function Home() {
   return (
     <div>
 
-      <HeroSlider/>
+      <HeroSlider />
       <NewsSection/>
       <AboutSection/>
-      <CoursesSection/>
       <FeaturesSection/>
+      <CoursesSection/>
       <TestimonialsSection/>
-
+      
+     
        
     </div>
   );
