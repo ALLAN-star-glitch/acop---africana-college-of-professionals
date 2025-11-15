@@ -7,6 +7,7 @@ import {
   PhoneIcon,
   MailIcon,
 } from 'lucide-react'
+import Link from 'next/link'
 export const Footer = () => {
   return (
     <footer className="bg-primary text-white">
@@ -47,36 +48,38 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   className="text-white/80 hover:text-accent transition-colors"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/courses"
                   className="text-white/80 hover:text-accent transition-colors"
                 >
                   Courses
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/admissions"
                   className="text-white/80 hover:text-accent transition-colors"
                 >
                   Admissions
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="https://form.jotform.com/253172041859559"
+                  target='_blank'
+                  rel='noreferrer noopener'
                   className="text-white/80 hover:text-accent transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -96,7 +99,7 @@ export const Footer = () => {
               <li className="flex items-start">
                 <MapPinIcon size={18} className="mr-2 mt-1 shrink-0" />
                 <span className="text-white/80">
-                  123 Education Avenue, Nairobi, Kenya
+                  Kianjau House 4th Floor, Thika
                 </span>
               </li>
               <li className="flex items-center">

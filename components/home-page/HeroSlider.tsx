@@ -10,7 +10,7 @@ const slides = [
     title: "January 2026 Intake NOW OPEN! Africana College of Professioals",
     subtitle: "Home of Quality Education",
     bgImage:
-      "/acop2026intake.jpg",
+      "/slide1.jpeg",
     primaryCta: "Join Africana Today",
     secondaryCta: "Explore Courses",
   },
@@ -19,7 +19,7 @@ const slides = [
     title: "Rooted in Faith, Driven by Excellence",
     subtitle: "",
     bgImage:
-      "https://images.unsplash.com/photo-1510172951991-856a654063f9?auto=format&fit=crop&w=1374&q=80",
+      "/slide2.jpeg",
     primaryCta: "",
     secondaryCta: "",
   },
@@ -28,7 +28,7 @@ const slides = [
     title: "Building Skills That Build Nations",
     subtitle: "Practical education for tomorrow's leaders.",
     bgImage:
-      "https://media.istockphoto.com/id/2188069561/photo/young-woman-programmer-focused-on-her-work-coding-on-dual-monitors-in-a-modern-office.webp",
+      "/slide3.jpeg",
     primaryCta: "Discover Our Courses",
     secondaryCta: "",
   },

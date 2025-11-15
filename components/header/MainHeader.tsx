@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { desktopMenuItems } from '@/lib/constants/MenuItems';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { desktopMenuItems } from '@/lib/constants/menuItems';
+
 
 export const MainHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);

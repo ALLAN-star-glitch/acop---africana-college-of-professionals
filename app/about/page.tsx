@@ -1,6 +1,5 @@
 import HeroSection from '@/components/about/HeroSection'
 import HistorySection from '@/components/about/HistorySection'
-import LeadershipSection from '@/components/about/LeadershipSection'
 import MissionVisionSection from '@/components/about/MissionVisionSection'
 import ValuesSection from '@/components/about/ValuesSection'
 
@@ -12,7 +11,8 @@ const AboutPage = () => {
         <HeroSection />
         <MissionVisionSection />
         <HistorySection />
-        <LeadershipSection />
+        {/*  <LeadershipSection />*/}
+       
         <ValuesSection />
       </main>
     </div>

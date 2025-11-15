@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -59,7 +60,7 @@ export const AboutSection = () => {
           <div className="relative flex justify-center">
             <div className="rounded-xl overflow-hidden shadow-xl relative h-64 sm:h-80 md:h-96 w-full">
               <Image
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+                src="/slide1.jpeg"
                 alt="Africana College campus"
                 className="object-cover"
                 fill
@@ -101,12 +102,12 @@ export const AboutSection = () => {
 
             {/* BUTTON */}
             <div className="flex justify-center lg:justify-start">
-              <a
-                href="#"
+              <Link
+                href="/about"
                 className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-medium inline-block transition-colors"
               >
                 Learn More About Us
-              </a>
+              </Link>
             </div>
 
           </div>
