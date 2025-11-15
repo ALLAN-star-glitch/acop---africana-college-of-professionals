@@ -6,7 +6,8 @@ import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import { desktopMenuItems } from '@/lib/constants/menuItems';
+import { desktopMenuItems } from '@/lib/constants/MenuItems';
+
 
 
 
