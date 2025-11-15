@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { desktopMenuItems } from '@/lib/constants/menuItems';
 
 
+
 export const MainHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
