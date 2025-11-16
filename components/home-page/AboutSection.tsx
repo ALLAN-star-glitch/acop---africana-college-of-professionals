@@ -57,7 +57,7 @@ export const AboutSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* IMAGE */}
-          <div className="relative flex justify-center">
+          <div className="relative flex flex-col items-center">
             <div className="rounded-xl overflow-hidden shadow-xl relative h-64 sm:h-80 md:h-96 w-full">
               <Image
                 src="/slide1.jpeg"
@@ -66,6 +66,11 @@ export const AboutSection = () => {
                 fill
               />
             </div>
+
+            {/* Caption */}
+            <p className="text-sm text-gray-500 mt-2 italic text-center">
+              Our recent graduation at the Tangaza University grounds ( 2025 ) 
+            </p>
 
             {/* Decorative shapes */}
             <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 w-24 h-24 sm:w-40 sm:h-40 bg-accent rounded-full opacity-20 -z-10"></div>

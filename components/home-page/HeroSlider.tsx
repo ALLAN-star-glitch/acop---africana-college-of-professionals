@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
@@ -9,8 +9,7 @@ const slides = [
     id: 1,
     title: "January 2026 Intake NOW OPEN! Africana College of Professioals",
     subtitle: "Home of Quality Education",
-    bgImage:
-      "/slide1.jpeg",
+    bgImage: "/slide1.jpeg",
     primaryCta: "Join Africana Today",
     secondaryCta: "Explore Courses",
   },
@@ -18,8 +17,7 @@ const slides = [
     id: 2,
     title: "Rooted in Faith, Driven by Excellence",
     subtitle: "",
-    bgImage:
-      "/slide2.jpeg",
+    bgImage: "/slide2.jpeg",
     primaryCta: "",
     secondaryCta: "",
   },
@@ -27,8 +25,7 @@ const slides = [
     id: 3,
     title: "Building Skills That Build Nations",
     subtitle: "Practical education for tomorrow's leaders.",
-    bgImage:
-      "/slide3.jpeg",
+    bgImage: "/slide3.jpeg",
     primaryCta: "Discover Our Courses",
     secondaryCta: "",
   },
@@ -45,126 +42,187 @@ const slides = [
 
 export const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const goPrev = () => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const goNext = () => {
-    setCurrentSlide((prev) =>
-      prev === slides.length - 1 ? 0 : prev + 1
-    );
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
+  // Auto slide for desktop
   useEffect(() => {
-    const interval = setInterval(goNext, 18000);
+    const interval = setInterval(goNext, 8000);
     return () => clearInterval(interval);
   }, []);
 
+  // Scroll to current slide on mobile
+  useEffect(() => {
+    if (sliderRef.current) {
+      const scrollWidth = sliderRef.current.clientWidth;
+      sliderRef.current.scrollTo({
+        left: scrollWidth * currentSlide,
+        behavior: "smooth",
+      });
+    }
+  }, [currentSlide]);
+
   return (
-    <section className="relative h-screen sm:h-[80vh] lg:h-[70vh] min-h-[500px] overflow-hidden">
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-        >
+    <section className="relative pt-20 h-[85vh] sm:h-[80vh] md:h-[75vh] lg:h-[85vh] xl:h-[90vh] min-h-[500px] overflow-hidden">
+      {/* --------- MOBILE SLIDER --------- */}
+      <div
+        ref={sliderRef}
+        className="flex sm:hidden h-full w-full overflow-x-auto scroll-smooth snap-x snap-mandatory"
+      >
+        {slides.map((slide) => (
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${slide.bgImage})` }}
-          />
+            key={slide.id}
+            className="flex-shrink-0 w-full h-full relative snap-center"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${slide.bgImage})` }}
+            />
+            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/20"></div>
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/20"></div>
+            <div className="container mx-auto px-4 h-full flex items-center relative z-20">
+              <div className="max-w-2xl text-white">
+                <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
+                  {slide.title}
+                </h1>
+                {slide.subtitle && (
+                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-95 leading-relaxed">
+                    {slide.subtitle}
+                  </p>
+                )}
 
-          <div className="container mx-auto px-4 h-full flex items-center relative z-20">
-            <div className="max-w-2xl text-white">
-              <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
-                {slide.title}
-              </h1>
-
-              {slide.subtitle && (
-                <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-95 leading-relaxed">
-                  {slide.subtitle}
-                </p>
-              )}
-
-              {(slide.primaryCta || slide.secondaryCta) && (
-                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
-
-                  {/* PRIMARY CTA */}
-                  {slide.primaryCta === "Join Africana Today" && (
-                    <a
-                      href="https://form.jotform.com/253171134791556"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
-                    >
-                      {slide.primaryCta}
-                    </a>
-                  )}
-
-                  {slide.primaryCta === "Discover Our Courses" && (
-                    <Link
-                      href="/courses"
-                      className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
-                    >
-                      {slide.primaryCta}
-                    </Link>
-                  )}
-
-                  {slide.primaryCta === "Apply Now" && (
-                    <Link
-                      href="/apply"
-                      className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
-                    >
-                      {slide.primaryCta}
-                    </Link>
-                  )}
-
-                  {/* SECONDARY CTA */}
-                  {slide.secondaryCta === "Explore Courses" && (
-                    <Link
-                      href="/courses"
-                      className="border-2 border-white hover:bg-white/10 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
-                    >
-                      {slide.secondaryCta}
-                    </Link>
-                  )}
-
-                </div>
-              )}
+                {(slide.primaryCta || slide.secondaryCta) && (
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
+                    {slide.primaryCta === "Join Africana Today" && (
+                      <a
+                        href="https://form.jotform.com/253171134791556"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </a>
+                    )}
+                    {slide.primaryCta === "Discover Our Courses" && (
+                      <Link
+                        href="/courses"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </Link>
+                    )}
+                    {slide.primaryCta === "Apply Now" && (
+                      <Link
+                        href="/apply"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </Link>
+                    )}
+                    {slide.secondaryCta === "Explore Courses" && (
+                      <Link
+                        href="/courses"
+                        className="border-2 border-white hover:bg-white/10 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.secondaryCta}
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
-      {/* ---------------- NAVIGATION ARROWS ---------------- */}
+      {/* --------- DESKTOP SLIDER --------- */}
+      <div className="hidden sm:block h-full w-full">
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${slide.bgImage})` }}
+            />
+            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/20"></div>
+
+            <div className="container mx-auto px-4 h-full flex items-center relative z-20">
+              <div className="max-w-2xl text-white">
+                <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
+                  {slide.title}
+                </h1>
+                {slide.subtitle && (
+                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-95 leading-relaxed">
+                    {slide.subtitle}
+                  </p>
+                )}
+
+                {(slide.primaryCta || slide.secondaryCta) && (
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
+                    {slide.primaryCta === "Join Africana Today" && (
+                      <a
+                        href="https://form.jotform.com/253171134791556"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </a>
+                    )}
+                    {slide.primaryCta === "Discover Our Courses" && (
+                      <Link
+                        href="/courses"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </Link>
+                    )}
+                    {slide.primaryCta === "Apply Now" && (
+                      <Link
+                        href="/apply"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.primaryCta}
+                      </Link>
+                    )}
+                    {slide.secondaryCta === "Explore Courses" && (
+                      <Link
+                        href="/courses"
+                        className="border-2 border-white hover:bg-white/10 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                      >
+                        {slide.secondaryCta}
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
       <button
         onClick={goPrev}
-        className="
-          cursor-pointer
-          hidden sm:flex
-          absolute left-4 top-1/2 -translate-y-1/2 z-30
-          h-12 w-12 items-center justify-center
-          rounded-full backdrop-blur-md bg-white/20
-          hover:bg-white/30 transition-all shadow-lg
-        "
+        className="cursor-pointer hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 items-center justify-center rounded-full backdrop-blur-md bg-accent/70 hover:bg-accent transition-all shadow-lg"
       >
         <ChevronLeft className="text-white w-6 h-6" />
       </button>
 
       <button
         onClick={goNext}
-        className="
-          cursor-pointer
-          hidden sm:flex
-          absolute right-4 top-1/2 -translate-y-1/2 z-30
-          h-12 w-12 items-center justify-center
-          rounded-full backdrop-blur-md bg-white/20
-          hover:bg-white/30 transition-all shadow-lg
-        "
+        className="cursor-pointer hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 items-center justify-center rounded-full backdrop-blur-md bg-accent/70 hover:bg-accent transition-all shadow-lg"
       >
         <ChevronRight className="text-white w-6 h-6" />
       </button>
