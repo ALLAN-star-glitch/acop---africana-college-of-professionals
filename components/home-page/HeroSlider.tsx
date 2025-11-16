@@ -33,8 +33,7 @@ const slides = [
     id: 4,
     title: "Join a Thriving Community of Purpose-Driven Students",
     subtitle: "Where faith meets academic excellence.",
-    bgImage:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1470&q=80",
+    bgImage: "/slide4.jpeg",
     primaryCta: "Apply Now",
     secondaryCta: "",
   },
@@ -52,13 +51,11 @@ export const HeroSlider = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
-  // Auto slide for desktop
   useEffect(() => {
     const interval = setInterval(goNext, 8000);
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll to current slide on mobile
   useEffect(() => {
     if (sliderRef.current) {
       const scrollWidth = sliderRef.current.clientWidth;
@@ -71,65 +68,69 @@ export const HeroSlider = () => {
 
   return (
     <section className="relative pt-20 h-[85vh] sm:h-[80vh] md:h-[75vh] lg:h-[85vh] xl:h-[90vh] min-h-[500px] overflow-hidden">
-      {/* --------- MOBILE SLIDER --------- */}
+
+      {/* MOBILE SLIDER */}
       <div
         ref={sliderRef}
         className="flex sm:hidden h-full w-full overflow-x-auto scroll-smooth snap-x snap-mandatory"
       >
         {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="flex-shrink-0 w-full h-full relative snap-center"
-          >
+          <div key={slide.id} className="flex-shrink-0 w-full h-full relative snap-center">
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             />
-            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/20"></div>
+
+            {/* NEW RIGHT-SIDE FADE GRADIENT */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
 
             <div className="container mx-auto px-4 h-full flex items-center relative z-20">
               <div className="max-w-2xl text-white">
                 <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
                   {slide.title}
                 </h1>
+
                 {slide.subtitle && (
-                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-95 leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl mb-6 opacity-95 leading-relaxed">
                     {slide.subtitle}
                   </p>
                 )}
 
                 {(slide.primaryCta || slide.secondaryCta) && (
-                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3">
                     {slide.primaryCta === "Join Africana Today" && (
                       <a
                         href="https://form.jotform.com/253171134791556"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </a>
                     )}
+
                     {slide.primaryCta === "Discover Our Courses" && (
                       <Link
                         href="/courses"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </Link>
                     )}
+
                     {slide.primaryCta === "Apply Now" && (
                       <Link
                         href="/apply"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </Link>
                     )}
+
                     {slide.secondaryCta === "Explore Courses" && (
                       <Link
                         href="/courses"
-                        className="border-2 border-white hover:bg-white/10 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="border-2 border-white hover:bg-white/10 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.secondaryCta}
                       </Link>
@@ -142,12 +143,12 @@ export const HeroSlider = () => {
         ))}
       </div>
 
-      {/* --------- DESKTOP SLIDER --------- */}
+      {/* DESKTOP SLIDER */}
       <div className="hidden sm:block h-full w-full">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
@@ -155,51 +156,57 @@ export const HeroSlider = () => {
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             />
-            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/20"></div>
+
+            {/* NEW GRADIENT */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
 
             <div className="container mx-auto px-4 h-full flex items-center relative z-20">
               <div className="max-w-2xl text-white">
-                <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
+                <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
                   {slide.title}
                 </h1>
+
                 {slide.subtitle && (
-                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-95 leading-relaxed">
+                  <p className="text-lg md:text-xl mb-6 opacity-95 leading-relaxed">
                     {slide.subtitle}
                   </p>
                 )}
 
                 {(slide.primaryCta || slide.secondaryCta) && (
-                  <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
+                  <div className="flex flex-row gap-4 flex-wrap">
                     {slide.primaryCta === "Join Africana Today" && (
                       <a
                         href="https://form.jotform.com/253171134791556"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </a>
                     )}
+
                     {slide.primaryCta === "Discover Our Courses" && (
                       <Link
                         href="/courses"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </Link>
                     )}
+
                     {slide.primaryCta === "Apply Now" && (
                       <Link
                         href="/apply"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
                       </Link>
                     )}
+
                     {slide.secondaryCta === "Explore Courses" && (
                       <Link
                         href="/courses"
-                        className="border-2 border-white hover:bg-white/10 text-white px-6 sm:px-8 py-3 rounded-full font-medium text-center shadow-md"
+                        className="border-2 border-white hover:bg-white/10 text-white px-8 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.secondaryCta}
                       </Link>
@@ -212,31 +219,29 @@ export const HeroSlider = () => {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
+      {/* ARROWS */}
       <button
         onClick={goPrev}
-        className="cursor-pointer hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 items-center justify-center rounded-full backdrop-blur-md bg-accent/70 hover:bg-accent transition-all shadow-lg"
+        className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 rounded-full bg-accent/70 hover:bg-accent backdrop-blur-md shadow-lg items-center justify-center"
       >
         <ChevronLeft className="text-white w-6 h-6" />
       </button>
 
       <button
         onClick={goNext}
-        className="cursor-pointer hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 items-center justify-center rounded-full backdrop-blur-md bg-accent/70 hover:bg-accent transition-all shadow-lg"
+        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 rounded-full bg-accent/70 hover:bg-accent backdrop-blur-md shadow-lg items-center justify-center"
       >
         <ChevronRight className="text-white w-6 h-6" />
       </button>
 
-      {/* Indicators */}
-      <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 z-30 flex justify-center gap-2 sm:gap-3">
+      {/* INDICATORS */}
+      <div className="absolute bottom-8 left-0 right-0 z-30 flex justify-center gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-1.5 rounded-full transition-all cursor-pointer ${
-              index === currentSlide
-                ? "w-8 sm:w-10 bg-accent"
-                : "w-2.5 sm:w-3 bg-white/50"
+            className={`h-1.5 rounded-full transition-all ${
+              index === currentSlide ? "w-10 bg-accent" : "w-3 bg-white/50"
             }`}
           />
         ))}

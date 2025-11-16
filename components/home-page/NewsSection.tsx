@@ -58,7 +58,7 @@ export const NewsSection = () => {
             {/* COVER IMAGE + PLAY ICON */}
             <div className="relative aspect-video cursor-pointer" onClick={() => setOpen(true)}>
               <Image
-                src="/banner.jpg" 
+                src="/banner2.jpeg" 
                 alt="Africana Video"
                 fill
                 className="object-cover"
