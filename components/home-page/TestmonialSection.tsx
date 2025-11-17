@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const testimonials = [
   {
@@ -104,18 +105,20 @@ export const TestimonialsSection = () => {
           </h3>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#"
+            <Link
+              href="https://form.jotform.com/253171134791556"
+              target="_blank"
+              rel = "noopener noreferrer"
               className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-full font-medium transition-transform transform hover:scale-105 shadow-md"
             >
               Register Now
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/contact"
               className="border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full font-medium transition-transform transform hover:scale-105"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>

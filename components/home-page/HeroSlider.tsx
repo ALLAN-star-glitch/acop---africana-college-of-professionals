@@ -120,7 +120,9 @@ export const HeroSlider = () => {
 
                     {slide.primaryCta === "Apply Now" && (
                       <Link
-                        href="/apply"
+                        href="https://form.jotform.com/253171134791556"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}

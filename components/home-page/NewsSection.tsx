@@ -192,12 +192,14 @@ export const NewsSection = () => {
               />
             </div>
 
-            <a
-              href="#"
+            <Link
+              href="https://form.jotform.com/253171134791556"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white text-primary hover:bg-lavender px-8 py-3 rounded-full font-medium transition-colors"
             >
               Apply Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>
