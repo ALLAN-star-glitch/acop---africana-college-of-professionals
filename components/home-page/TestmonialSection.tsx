@@ -36,7 +36,7 @@ export const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section className="relative py-16 sm:py-24 bg-gradient-to-br from-primary to-accent overflow-hidden">
+    <section className="relative py-16 sm:py-24 bg-linear-to-br from-primary to-accent overflow-hidden">
       {/* Background Image Overlay */}
       <div className="absolute inset-0">
         <Image

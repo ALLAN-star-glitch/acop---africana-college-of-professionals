@@ -64,6 +64,24 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
 
+
+      {/* Google Tag Manager (noscript) */}
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DGCXCNRGHE"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DGCXCNRGHE');
+          `}
+        </Script>
+
+
         {/* Start of Tawk.to Script */}
         <Script id="tawk-to" strategy="afterInteractive">
           {`
