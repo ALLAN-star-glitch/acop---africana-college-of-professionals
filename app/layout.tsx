@@ -30,23 +30,28 @@ export const metadata: Metadata = {
   ].join(", "),
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+
+  //  Canonical URL
+  alternates: {
+    canonical: "https://www.acop.co.ke/",
+  },
+
   openGraph: {
     title: "Africana College of Professionals",
     description:
       "Access professional courses, scholarships, and career growth resources at Africana College of Professionals.",
-    // Force all OG URLs to the www domain
     url: "https://www.acop.co.ke/",
     siteName: "Africana College of Professionals",
     type: "website",
     images: [
       {
-        url: "https://plus.unsplash.com/premium_photo-1682284353484-4e16001c58eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGVkdWNhdGlvbnxlbnwwfHwwfHx8MA%3D%3D", // absolute URL with www
+        url: "https://plus.unsplash.com/premium_photo-1682284353484-4e16001c58eb?w=900&auto=format&fit=crop&q=60",
         width: 1200,
         height: 630,
         alt: "Africana College of Professionals - Featured Image",
       },
     ],
-  }
+  },
 };
 
 export default function RootLayout({
@@ -56,17 +61,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <TopHeader />
         <MainHeader />
         <main>{children}</main>
         <Footer />
 
-
-      {/* Google Tag Manager (noscript) */}
-
+        {/* Google Tag Manager */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DGCXCNRGHE"
           strategy="afterInteractive"
@@ -81,8 +82,7 @@ export default function RootLayout({
           `}
         </Script>
 
-
-        {/* Start of Tawk.to Script */}
+        {/* Tawk.to Script */}
         <Script id="tawk-to" strategy="afterInteractive">
           {`
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -96,7 +96,6 @@ export default function RootLayout({
             })();
           `}
         </Script>
-        {/* End of Tawk.to Script */}
       </body>
     </html>
   );
