@@ -1,58 +1,50 @@
 export const popularCourses = [
   {
     id: 1,
-    title: 'Diploma in Counseling Psychology',
+    title: "Diploma in Counseling Psychology",
     description:
-      'Develop therapeutic skills with a strong ethical foundation to support mental wellbeing.',
+      "Develop therapeutic skills with a strong ethical foundation to support emotional and mental wellbeing.",
     image:
-      'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=500&q=80",
   },
   {
     id: 2,
-    title: 'Diploma in Marriage & Family',
+    title: "Diploma in Community Development",
     description:
-      'Gain professional skills to support couples and families through evidence-based counseling, conflict resolution, and healthy relationship building.',
+      "Build practical community empowerment skills focusing on social change, leadership, and sustainable development.",
     image:
-      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80",
   },
   {
     id: 3,
-    title: 'Certificate in Counseling Psychology',
+    title: "Diploma in Marriage and Family",
     description:
-      'Hands-on training in high-demand technical fields with industry-standard equipment.',
+      "Gain professional skills in family systems, conflict resolution, and evidence-based marriage and family counseling.",
     image:
-      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80",
   },
   {
     id: 4,
-    title: 'Hair, Beauty & Fashion',
+    title: "Diploma in Social Work",
     description:
-      'Creative training in beauty arts with professional techniques and business skills.',
+      "Learn professional social intervention skills, case management, and community-based support practices.",
     image:
-      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=500&q=80",
   },
   {
     id: 5,
-    title: 'Computer Packages',
+    title: "Certificate in Marriage and Family",
     description:
-      'Master essential computer applications including MS Office, internet skills, typing, and digital productivity tools for school, work, and business.',
+      "Foundational training in relationship counseling, parenting support, and family therapy techniques.",
     image:
-      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80",
   },
   {
     id: 6,
-    title: 'Certificate in Electrical Installation',
+    title: "Certificate in Community Development",
     description:
-      'Practical training in residential and commercial electrical systems, wiring, safety standards, and technical problem-solving for real-world installation work.',
+      "Hands-on training in grassroots development, community mobilization, and social empowerment initiatives.",
     image:
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-  },
-  {
-    id: 7,
-    title: 'Certificate in Plumbing',
-    description:
-      'Learn hands-on plumbing skills including pipework, drainage systems, fittings, repairs, and maintenance aligned with industry safety and construction standards.',
-    image:
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=500&q=80",
   },
 ];

@@ -1,125 +1,169 @@
 import { Course } from "../interfaces/Course";
 
-
 export const courses: Course[] = [
+  // --- DIPLOMA COURSES ---
   {
     id: '1',
-    title: 'Diploma in Counselling Psychology',
+    title: 'Diploma in Counseling Psychology',
     description:
-      'Develop professional counselling skills grounded in Christian values. Learn therapeutic techniques, ethics, and practical application for community impact.',
+      'Develop therapeutic skills with a strong ethical foundation to support mental wellbeing.',
     image:
-      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=600&fit=crop',
     accreditations: ['TVETA', 'KCPA'],
     category: 'counselling',
   },
   {
     id: '2',
-    title: 'Certificate in Guidance & Counselling',
+    title: 'Diploma in Community Development',
     description:
-      'Foundation course in counselling principles, communication skills, and ethical practice for aspiring counsellors and community leaders.',
+      'Build practical community empowerment skills focusing on social change, leadership, and sustainable development.',
     image:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
     category: 'counselling',
   },
   {
     id: '3',
-    title: 'CPA (Certified Public Accountant)',
+    title: 'Diploma in Marriage and Family',
     description:
-      'Comprehensive accounting program preparing you for professional practice. Master financial reporting, auditing, taxation, and business law.',
+      'Gain professional skills in family systems, conflict resolution, and evidence-based marriage and family counseling.',
     image:
-      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop',
-    accreditations: ['KASNEB'],
-    category: 'business',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop',
+    accreditations: ['TVETA', 'KCPA'],
+    category: 'counselling',
   },
   {
     id: '4',
-    title: 'Diploma in Business Management',
+    title: 'Diploma in Social Work',
     description:
-      'Learn strategic planning, operations management, and leadership skills. Perfect for aspiring entrepreneurs and business professionals.',
+      'Learn professional social intervention skills, case management, and community-based support practices.',
     image:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'business',
+    category: 'counselling',
   },
+
+  // --- CERTIFICATE COURSES ---
   {
     id: '5',
-    title: 'Certificate in Accounting',
+    title: 'Certificate in Marriage and Family',
     description:
-      'Build foundational accounting skills including bookkeeping, financial statements, and basic taxation for small businesses.',
+      'Foundational training in relationship counseling, parenting support, and family therapy techniques.',
     image:
-      'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'business',
+    category: 'counselling',
   },
   {
     id: '6',
-    title: 'Diploma in Information Technology',
+    title: 'Certificate in Community Development',
     description:
-      'Master programming, networking, database management, and cybersecurity. Hands-on training with industry-standard tools.',
+      'Hands-on training in grassroots development, community mobilization, and social empowerment initiatives.',
     image:
-      'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'technical',
+    category: 'counselling',
   },
   {
     id: '7',
-    title: 'Certificate in Electrical Installation',
+    title: 'Certificate in Social Work',
     description:
-      'Practical training in electrical wiring, safety standards, and installation techniques for residential and commercial projects.',
+      'Practical skills for social support, case handling, and assisting vulnerable groups in community settings.',
     image:
-      'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'technical',
+    category: 'counselling',
   },
   {
     id: '8',
-    title: 'Diploma in Plumbing & Pipe Fitting',
+    title: 'Business Management',
     description:
-      'Comprehensive plumbing training covering water systems, drainage, pipe installation, and maintenance for modern buildings.',
+      'Comprehensive training in business operations, entrepreneurship, and organizational management.',
     image:
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'technical',
+    category: 'business',
   },
   {
     id: '9',
-    title: 'Diploma in Beauty Therapy',
+    title: 'Human Resource Management',
     description:
-      'Professional beauty training including skincare, makeup artistry, spa treatments, and salon management skills.',
+      'Develop core HR skills including recruitment, workforce development, performance management, and ethics.',
     image:
-      'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'beauty',
+    category: 'business',
   },
+
+  // --- SHORT COURSES ---
   {
     id: '10',
-    title: 'Certificate in Hairdressing & Barbering',
+    title: 'TOT / TOF (Training of Trainers)',
     description:
-      'Master cutting, styling, coloring techniques, and customer service for a successful career in hair care.',
+      'Professional trainer development with practical facilitation, instructional design, and presentation skills.',
     image:
-      'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'beauty',
+    category: 'short-course',
   },
   {
     id: '11',
-    title: 'Diploma in Fashion Design',
+    title: 'Mindful Self-Compassion',
     description:
-      'Learn pattern making, garment construction, fashion illustration, and textile selection for creative fashion careers.',
+      'Training focused on mindfulness, emotional regulation, and compassionate self-care practices.',
     image:
-      'https://images.unsplash.com/photo-1558769132-cb1aea3c8565?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'beauty',
+    category: 'short-course',
   },
   {
     id: '12',
-    title: 'Certificate in Nail Technology',
+    title: 'Therapeutic Community Model',
     description:
-      'Specialized training in manicures, pedicures, nail art, and salon hygiene for professional nail technicians.',
+      'Learn structured therapeutic approaches for community-based recovery and psychosocial support.',
     image:
-      'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=600&fit=crop',
     accreditations: ['TVETA'],
-    category: 'beauty',
+    category: 'short-course',
   },
-]
+  {
+    id: '13',
+    title: 'Trauma & Psychological First Aid',
+    description:
+      'Training in crisis intervention, emotional stabilization, and trauma-informed support skills.',
+    image:
+      'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=600&fit=crop',
+    accreditations: ['TVETA'],
+    category: 'short-course',
+  },
+  {
+    id: '14',
+    title: 'Counselor Supervision',
+    description:
+      'Advanced training for professional counselors in supervision, ethical practice, and case management oversight.',
+    image:
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop',
+    accreditations: ['TVETA'],
+    category: 'short-course',
+  },
+  {
+    id: '15',
+    title: 'Drug & Substance Abuse Counseling',
+    description:
+      'Skill-based training in addiction counseling, recovery support, relapse prevention, and client assessment.',
+    image:
+      'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=600&fit=crop',
+    accreditations: ['TVETA'],
+    category: 'short-course',
+  },
+  {
+    id: '16',
+    title: 'IT Computer Applications',
+    description:
+      'Master essential computer applications including MS Office, internet skills, digital literacy, and typing.',
+    image:
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop',
+    accreditations: ['TVETA'],
+    category: 'technical',
+  },
+];

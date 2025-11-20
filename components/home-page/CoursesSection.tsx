@@ -3,10 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { popularCourses } from '@/lib/constants/popularCourses';
-
-
-
-
+import Link from 'next/link';
 
 export const CoursesSection = () => {
   return (
@@ -21,7 +18,7 @@ export const CoursesSection = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {popularCourses.map((course) => (
+          {popularCourses.slice(0, 6).map((course) => (
             <div
               key={course.id}
               className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
@@ -48,6 +45,15 @@ export const CoursesSection = () => {
               </div>
             </div>
           ))}
+        </div>
+        {/* View More Link */}
+        <div className="text-center mt-8">
+          <Link
+            href="/courses"
+            className="text-primary font-medium hover:underline"
+          >
+            View More Courses &rarr;
+          </Link>
         </div>
       </div>
     </section>
