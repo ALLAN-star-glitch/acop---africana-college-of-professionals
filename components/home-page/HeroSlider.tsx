@@ -98,7 +98,7 @@ export const HeroSlider = () => {
 
                 {(slide.primaryCta || slide.secondaryCta) && (
                   <div className="flex flex-col sm:flex-row gap-3">
-                    {slide.primaryCta === "Join Africana Today" && (
+                    {slide.primaryCta === "Apply Now" && (
                       <a
                         href="https://form.jotform.com/253171134791556"
                         target="_blank"
