@@ -9,8 +9,8 @@ const slides = [
     id: 1,
     title: "January 2026 Intake NOW OPEN! Africana College of Professioals",
     subtitle: "Home of Quality Education",
-    bgImage: "/slide1.jpeg",
-    primaryCta: "Join Africana Today",
+    bgImage: "/acop2026intake.jpg",
+    primaryCta: "Apply Now",
     secondaryCta: "Explore Courses",
   },
   {
