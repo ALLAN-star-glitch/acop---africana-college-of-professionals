@@ -119,8 +119,6 @@ export const HeroSlider = () => {
                       </Link>
                     )}
 
-                    {/* REMOVED DUPLICATE APPLY NOW BUTTON ONLY */}
-
                     {slide.secondaryCta === "Explore Courses" && (
                       <Link
                         href="/courses"
@@ -188,13 +186,16 @@ export const HeroSlider = () => {
                       </Link>
                     )}
 
+                    {/* ⬇️ UPDATED — NOW OPEN JOTFORM IN NEW TAB */}
                     {slide.primaryCta === "Apply Now" && (
-                      <Link
-                        href="/apply"
+                      <a
+                        href="https://form.jotform.com/253171134791556"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
-                      </Link>
+                      </a>
                     )}
 
                     {slide.secondaryCta === "Explore Courses" && (
