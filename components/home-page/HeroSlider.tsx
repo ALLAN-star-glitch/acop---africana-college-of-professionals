@@ -98,6 +98,7 @@ export const HeroSlider = () => {
 
                 {(slide.primaryCta || slide.secondaryCta) && (
                   <div className="flex flex-col sm:flex-row gap-3">
+
                     {slide.primaryCta === "Apply Now" && (
                       <a
                         href="https://form.jotform.com/253171134791556"
@@ -118,16 +119,7 @@ export const HeroSlider = () => {
                       </Link>
                     )}
 
-                    {slide.primaryCta === "Apply Now" && (
-                      <Link
-                        href="https://form.jotform.com/253171134791556"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-medium text-center shadow-md"
-                      >
-                        {slide.primaryCta}
-                      </Link>
-                    )}
+                    {/* REMOVED DUPLICATE APPLY NOW BUTTON ONLY */}
 
                     {slide.secondaryCta === "Explore Courses" && (
                       <Link
