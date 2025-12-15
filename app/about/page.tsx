@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/pw/AP1GczOY6nX_pGvI42ic6xQyJg8rMvM9paCpirg7c4N8OYR96MSGsnEf87g8ozJMvN1GLc9kWfO1aoTWyRW1nQO7N3mIjmOIaj68AhLdkA9wnNSxKpbG7piYo82i8NijsqGHfrSfcHDubhg1YW7S2JjHDM-Q=w2850-h1984-s-no-gm?authuser=0',
+        url: 'https://www.acop.co.ke/about-background.jpg',
         width: 1200,
         height: 630,
         alt: 'About Africana College of Professionals',
