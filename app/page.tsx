@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Africana College of Professionals',
     description:
-      'Join Africana College of Professionals to access industry-focused diploma, certificate, and short courses designed for career success in Kenya.',
+      'Join Africana College of Professionals to access industry-focused courses designed for career success in Kenya.',
     url: 'https://www.acop.co.ke',
     siteName: 'Africana College of Professionals',
     type: 'website',

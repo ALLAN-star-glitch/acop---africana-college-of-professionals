@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/pw/AP1GczNULY29ApiLm0LChcf_4TcH9KgUZ20itAWvrsBXjRazbs5G0bo071ejoiZn1g1hs2yRwmT6yqzDRkXIMGIjqtCeI6NX9Y-rVRI2_Mwef4zIHsOV1awkqI85NZjjKk42JQmGD7AHbIkoNPbpIKMas3uC=w2976-h1984-s-no-gm?authuser=0',
+        url: '/admission-background.jpg',
         width: 1200,
         height: 630,
         alt: 'Africana College Admissions',
