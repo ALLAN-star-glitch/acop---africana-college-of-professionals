@@ -21,7 +21,7 @@ const Hero = () => {
       className="relative h-[70vh] min-h-[500px] bg-cover bg-center flex items-center"
     >
       <Image
-              src="/courses-background.jpg"
+              src="/courses-background.JPG"
               alt="Africana College admissions background"
               fill
               priority
@@ -44,7 +44,7 @@ const Hero = () => {
           className="max-w-3xl text-white"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            With Tangaza University Collaboration - Empower your career.
+            With Tangaza University Collaboration
           </h1>
           <motion.p
             initial={{
@@ -59,7 +59,7 @@ const Hero = () => {
             }}
             className="text-xl md:text-2xl mb-8"
           >
-            Empower your career with TVETA, short, professional, diploma, and certificate courses. 
+            Empower your career with our professional courses. 
           </motion.p>
           <motion.div
             initial={{

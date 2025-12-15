@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/slide1.jpeg",
+        url: "https://www.acop.co.ke/courses-background.JPG",
         width: 1200,
         height: 630,
         alt: "Africana College Courses",

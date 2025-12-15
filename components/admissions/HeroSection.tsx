@@ -51,10 +51,7 @@ const HeroSection = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-xl md:text-2xl mb-8"
           >
-           Start your admission journey with Africana College. Explore program
-            requirements, application steps, and enrollment timelines designed
-            to help you join a community committed to academic excellence,
-            leadership, and integrity.
+           Start your admission journey with Africana College. 
           </motion.p>
 
           <motion.div
