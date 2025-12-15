@@ -21,7 +21,7 @@ const Hero = () => {
       className="relative h-[70vh] min-h-[500px] bg-cover bg-center flex items-center"
     >
       <Image
-              src="/about-background.jpg"
+              src="/courses-background.jpg"
               alt="Africana College admissions background"
               fill
               priority
@@ -44,7 +44,7 @@ const Hero = () => {
           className="max-w-3xl text-white"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Empower Your Career with Purpose-Driven Learning
+            With Tangaza University Collaboration - Empower your career.
           </h1>
           <motion.p
             initial={{
@@ -59,7 +59,7 @@ const Hero = () => {
             }}
             className="text-xl md:text-2xl mb-8"
           >
-            Explore our accredited courses designed for real-world impact.
+            Empower your career with TVETA, short, professional, diploma, and certificate courses. 
           </motion.p>
           <motion.div
             initial={{
