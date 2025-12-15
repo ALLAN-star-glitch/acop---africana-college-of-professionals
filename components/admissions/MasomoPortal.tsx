@@ -46,7 +46,7 @@ export function MasomoPortal() {
                   <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 </div>
                 <div className="flex-1 bg-violet-800 rounded px-3 py-1 text-sm text-violet-200">
-                  masomo.africana.edu
+                  masomoportal.acop.co.ke
                 </div>
               </div>
               <div className="p-8">

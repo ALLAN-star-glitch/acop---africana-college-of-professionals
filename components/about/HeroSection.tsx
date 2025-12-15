@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image';
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -18,10 +19,14 @@ const HeroSection = () => {
     <section
       ref={heroRef}
       className="relative h-[70vh] min-h-[500px] bg-cover bg-center flex items-center"
-      style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')`,
-      }}
     >
+      <Image
+              src="/about-background.jpg"
+              alt="Africana College admissions background"
+              fill
+              priority
+              className="object-cover object-top"
+       />
       <div className="absolute inset-0 bg-linear-to-r from-purple-900/70 to-orange-500/60"></div>
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
