@@ -75,14 +75,14 @@ export const HeroSlider = () => {
         className="flex sm:hidden h-full w-full overflow-x-auto scroll-smooth snap-x snap-mandatory"
       >
         {slides.map((slide) => (
-          <div key={slide.id} className="flex-shrink-0 w-full h-full relative snap-center">
+          <div key={slide.id} className="shrink-0 w-full h-full relative snap-center">
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             />
 
             {/* NEW RIGHT-SIDE FADE GRADIENT */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
 
             <div className="container mx-auto px-4 h-full flex items-center relative z-20">
               <div className="max-w-2xl text-white">
@@ -150,7 +150,7 @@ export const HeroSlider = () => {
             />
 
             {/* NEW GRADIENT */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
 
             <div className="container mx-auto px-4 h-full flex items-center relative z-20">
               <div className="max-w-2xl text-white">
