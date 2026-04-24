@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight, Newspaper } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -11,12 +11,29 @@ import { desktopMenuItems } from '@/lib/constants/MenuItems';
 export const MainHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hasRecentNews, setHasRecentNews] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Check for recent news - replace with your actual logic
+  useEffect(() => {
+    const checkRecentNews = async () => {
+      // Replace this with your actual API call
+      // For now, set to true to show animated badge
+      setHasRecentNews(true);
+      
+      // Example when you have WordPress:
+      // const response = await fetch('/api/has-recent-news');
+      // const data = await response.json();
+      // setHasRecentNews(data.hasRecent);
+    };
+    
+    checkRecentNews();
   }, []);
 
   // Close mobile menu on escape key
@@ -39,10 +56,6 @@ export const MainHeader = () => {
       document.body.style.overflow = 'unset';
     };
   }, [mobileMenuOpen]);
-
-  // Get top header height for calculations
-  const topHeaderHeight = isScrolled ? 0 : 32; // 8 (h-8) in pixels = 32px
-  const topHeaderHeightSm = isScrolled ? 0 : 40; // 10 (sm:h-10) in pixels = 40px
 
   return (
     <>
@@ -97,6 +110,58 @@ export const MainHeader = () => {
             <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center">
               {desktopMenuItems.map((item) => {
                 const isActive = pathname === item.href;
+
+                // Special handling for News item with animated badge
+                if (item.id === 'news') {
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="relative px-3 xl:px-4 py-2 group"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="flex items-center space-x-1">
+                        <Newspaper className={`w-4 h-4 transition-colors duration-200 ${
+                          isActive ? 'text-primary' : 'text-gray-500 group-hover:text-primary'
+                        }`} />
+                        <span className={`
+                          relative font-medium transition-colors duration-200 text-sm xl:text-base
+                          ${isActive ? 'text-primary' : 'text-gray-600 group-hover:text-primary'}
+                        `}>
+                          {item.label}
+                        </span>
+                        
+                        {/* Animated Badge on News Menu Item */}
+                        {hasRecentNews && (
+                          <motion.span
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ 
+                              type: "spring",
+                              stiffness: 500,
+                              damping: 30
+                            }}
+                            className="ml-1.5 px-1.5 py-0.5 text-[10px] font-bold bg-red-500 text-white rounded-full shadow-lg"
+                          >
+                            ALERT
+                          </motion.span>
+                        )}
+                      </div>
+                      
+                      <span className="absolute inset-x-3 xl:inset-x-4 bottom-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                      
+                      {isActive && (
+                        <motion.span
+                          layoutId="desktopActiveIndicator"
+                          className="absolute inset-x-3 xl:inset-x-4 bottom-0 h-0.5 bg-primary rounded-full"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
+                    </Link>
+                  );
+                }
 
                 if (item.external) {
                   return (
@@ -206,7 +271,7 @@ export const MainHeader = () => {
               aria-hidden="true"
             />
             
-            {/* Slide-in Menu - Now covers full height properly */}
+            {/* Slide-in Menu */}
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
@@ -216,7 +281,7 @@ export const MainHeader = () => {
               style={{ 
                 top: 0,
                 height: '100vh',
-                paddingTop: isScrolled ? '56px' : 'calc(32px + 56px)', // TopHeader height + MainHeader height
+                paddingTop: isScrolled ? '56px' : 'calc(32px + 56px)',
               }}
             >
               <div className="flex flex-col h-full">
@@ -286,7 +351,24 @@ export const MainHeader = () => {
                                 }
                               `}
                             >
-                              <span className="font-medium">{item.label}</span>
+                              <div className="flex items-center space-x-2">
+                                {item.id === 'news' && <Newspaper className="w-4 h-4" />}
+                                <span className="font-medium">{item.label}</span>
+                                {item.id === 'news' && hasRecentNews && (
+                                  <motion.span
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ 
+                                      type: "spring",
+                                      stiffness: 500,
+                                      damping: 30
+                                    }}
+                                    className="ml-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full shadow-md"
+                                  >
+                                    ALERT
+                                  </motion.span>
+                                )}
+                              </div>
                               {isActive && (
                                 <span className="w-1.5 h-1.5 bg-primary rounded-full" />
                               )}
@@ -298,7 +380,7 @@ export const MainHeader = () => {
                   </ul>
                 </nav>
 
-                {/* Mobile Register Button - Extra CTA in menu */}
+                {/* Mobile Register Button */}
                 <div className="p-6 border-t border-gray-100 mt-auto">
                   <Link
                     href="https://form.jotform.com/253171134791556"
@@ -322,10 +404,10 @@ export const MainHeader = () => {
         className="w-full"
         style={{ 
           height: isScrolled 
-            ? '56px' // Just main header
-            : 'calc(32px + 56px)' // Top header + main header
+            ? '56px'
+            : 'calc(32px + 56px)'
         }}
       />
     </>
   );
-}; 
+};
