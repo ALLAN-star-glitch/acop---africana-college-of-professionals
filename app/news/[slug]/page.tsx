@@ -3,7 +3,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getNewsBySlug, getAllNewsSlugs, formatDate, decodeHtmlEntities, getAllNews } from '@/lib/wordpress'
 import type { Metadata } from 'next'
-import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, Share2, Bookmark, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Facebook, Twitter, Instagram, Linkedin, Award, Sparkles, FolderOpen } from 'lucide-react'
+import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Award, Sparkles, FolderOpen } from 'lucide-react'
+
+import { ShareButtons } from '@/components/ShareButtons'
 
 // Generate static paths at build time from WordPress
 export async function generateStaticParams() {
@@ -40,8 +42,7 @@ function getCategoryColor(categories: { name: string; slug: string }[] | undefin
   return colors[categorySlug] || 'bg-gray-600'
 }
 
-// app/news/[slug]/page.tsx
-
+// Generate metadata with OG image
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const article = await getNewsBySlug(slug)
@@ -56,10 +57,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const websiteUrl = 'https://www.acop.co.ke'
   const articleUrl = `${websiteUrl}/news/${article.slug}`
   
-  // Get the featured image from WordPress
-  const featuredImageUrl = article.newsMetadata?.featuredImage?.node?.mediaItemUrl || null
+  // --- FIX: Ensure the image URL is absolute and from the correct field ---
+  // The path 'article.newsMetadata?.featuredImage?.node?.mediaItemUrl' might be incorrect.
+  // Based on your GraphQL response, it should be: article.newsMetadata?.featuredImage?.node?.mediaItemUrl
+  const featuredImageNode = article.newsMetadata?.featuredImage?.node;
+  let ogImageUrl = null;
+  if (featuredImageNode && featuredImageNode.mediaItemUrl) {
+    // If the URL is relative, prepend the WordPress site URL
+    if (featuredImageNode.mediaItemUrl.startsWith('/')) {
+        ogImageUrl = `https://cms.acop.co.ke${featuredImageNode.mediaItemUrl}`;
+    } else {
+        ogImageUrl = featuredImageNode.mediaItemUrl;
+    }
+  }
   
-  // Get description from excerpt or body
+  // If no featured image, use a default image (ensure this image exists)
+  const finalOgImageUrl = ogImageUrl || `${websiteUrl}/default-og-image.jpg`;
+  
   const description = article.newsMetadata?.excerpt 
     ? decodeHtmlEntities(article.newsMetadata.excerpt)
     : article.newsMetadata?.body 
@@ -76,21 +90,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: 'Africana College of Professionals',
       type: 'article',
       publishedTime: new Date(article.date).toISOString(),
-      images: featuredImageUrl ? [
+      images: [
         {
-          url: featuredImageUrl,
+          url: finalOgImageUrl,
           width: 1200,
           height: 630,
           alt: article.title,
         },
-      ] : [],
+      ],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: article.title,
-      description: description,
-      images: featuredImageUrl ? [featuredImageUrl] : [],
-    },
+    // Twitter card section removed as requested
     alternates: {
       canonical: articleUrl,
     },
@@ -116,6 +125,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const { slug } = await params
   const article = await getNewsBySlug(slug)
 
+
+
   if (!article) {
     notFound()
   }
@@ -127,7 +138,6 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const isDeadline = primaryType === 'deadline'
   const isAdmissions = primaryType === 'admissions'
   
-  // Get WordPress category
   const categoryName = getCategoryDisplayName(article.newsCategories?.nodes)
   const categoryColor = getCategoryColor(article.newsCategories?.nodes)
   
@@ -138,7 +148,6 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const formattedDate = formatDate(article.date)
   const decodedBody = decodeHtmlEntities(metadata?.body || '')
   
-  // Calculate reading time
   const readingTime = Math.ceil(decodedBody.replace(/<[^>]*>/g, '').split(/\s+/).length / 200)
   const wordCount = decodedBody.replace(/<[^>]*>/g, '').split(/\s+/).length
   
@@ -384,34 +393,14 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                   </div>
                 )}
 
-                {/* Share Section */}
-                <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-500">Share this:</span>
-                    <div className="flex gap-2">
-                      <button className="p-2 rounded-full bg-gray-100 hover:bg-blue-600 hover:text-white transition-all duration-300">
-                        <Facebook className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 rounded-full bg-gray-100 hover:bg-sky-500 hover:text-white transition-all duration-300">
-                        <Twitter className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 rounded-full bg-gray-100 hover:bg-pink-600 hover:text-white transition-all duration-300">
-                        <Instagram className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 rounded-full bg-gray-100 hover:bg-blue-700 hover:text-white transition-all duration-300">
-                        <Linkedin className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                    <Bookmark className="w-4 h-4" />
-                  </button>
-                </div>
+        
               </div>
             </article>
 
             {/* Right Sidebar */}
             <aside className="lg:w-1/3 space-y-6">
+            <ShareButtons title={article.title} />
+
               {/* Author Card */}
               {authorName && (
                 <div className="bg-gradient-to-r from-gray-50 to-white rounded-xl p-6 border border-gray-100 shadow-sm">
