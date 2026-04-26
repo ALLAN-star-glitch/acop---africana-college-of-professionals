@@ -102,6 +102,20 @@ export const Footer = () => {
                     CMS Portal
                   </Link>
                 </li>
+                {/* ACOP CRM - New Menu Item */}
+                <li>
+                  <a
+                    href="https://app-eu1.hubspot.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/80 hover:text-accent flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+                    </svg>
+                    ACOP CRM
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -157,7 +171,8 @@ export const Footer = () => {
             {/* Close Button */}
             <button
               onClick={() => setOpen(false)}
-              className="cursor-pointer absolute top-2 right-1 rounded-full bg-red-500 text-black hover:text-gray-700"
+              className="cursor-pointer absolute top-2 right-2 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
+              aria-label="Close"
             >
               ✕
             </button>
@@ -165,13 +180,12 @@ export const Footer = () => {
             {/* Modal Image */}
             <div className="w-full h-40 relative mb-4 rounded-lg overflow-hidden shadow-md">
               <Image
-                src="/newsletter.jpg" // replace with your image
+                src="/newsletter.jpg"
                 alt="Newsletter"
                 fill
                 className="object-cover"
               />
             </div>
-
 
             {/* Loading Spinner */}
             {loading && (

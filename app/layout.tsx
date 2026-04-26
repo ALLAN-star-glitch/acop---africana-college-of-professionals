@@ -73,6 +73,14 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
 
+        {/* Poptin Script - ADD THIS */}
+        <Script
+          id="poptin-pixel"
+          src="https://cdn.popt.in/pixel.js?id=fb66af3503d63"
+          strategy="afterInteractive"
+          async={true}
+        />
+
         {/* Google Tag Manager */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DGCXCNRGHE"
