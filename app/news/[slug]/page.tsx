@@ -41,6 +41,7 @@ function getCategoryColor(categories: { name: string; slug: string }[] | undefin
   }
   return colors[categorySlug] || 'bg-gray-600'
 }
+
 // Generate metadata with OG image
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -56,18 +57,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const websiteUrl = 'https://www.acop.co.ke'
   const articleUrl = `${websiteUrl}/news/${article.slug}`
   
-  // --- FIX: Get the featured image URL correctly ---
-  let ogImageUrl = `${websiteUrl}/acoplogo.jpg` // Default fallback
+  // --- FORCE THE IMAGE FROM WORDPRESS ---
+  // Access the image URL directly from the source and ignore any fallback
+  const wpImageUrl = article.newsMetadata?.featuredImage?.node?.mediaItemUrl;
   
-  // Try to get the featured image from WordPress
-  // Based on your working og:temporal:twitter:image, the correct path should be:
-  if (article.newsMetadata?.featuredImage?.node?.mediaItemUrl) {
-    ogImageUrl = article.newsMetadata.featuredImage.node.mediaItemUrl
-  }
-  
-  // If the URL is relative, make it absolute
-  if (ogImageUrl && ogImageUrl.startsWith('/')) {
-    ogImageUrl = `https://cms.acop.co.ke${ogImageUrl}`
+  // If there's no image from WordPress, the page is misconfigured.
+  // You MUST have a featured image set in WordPress for every article you want to share.
+  if (!wpImageUrl) {
+    console.error(`Missing featured image for article: ${article.slug}`);
+    // You can choose to throw an error or just not set an image.
+    // For now, we'll set no image.
   }
   
   const description = article.newsMetadata?.excerpt 
@@ -86,14 +85,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: 'Africana College of Professionals',
       type: 'article',
       publishedTime: new Date(article.date).toISOString(),
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
+      // Only include the image block if an image URL exists
+      ...(wpImageUrl && {
+        images: [
+          {
+            url: wpImageUrl,
+            width: 1200,
+            height: 630,
+            alt: article.title,
+          },
+        ],
+      }),
     },
     alternates: {
       canonical: articleUrl,
