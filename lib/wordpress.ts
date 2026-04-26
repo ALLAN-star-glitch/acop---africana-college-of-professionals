@@ -173,6 +173,7 @@ export async function getAllNews(): Promise<NewsArticle[]> {
           newsMetadata {
             newsType
             body
+            excerpt
             eventDate
             eventTime
             eventVenue
@@ -238,6 +239,7 @@ export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
         newsMetadata {
           newsType
           body
+          excerpt
           eventDate
           eventTime
           eventVenue
@@ -352,3 +354,20 @@ export function getNewsTypeDisplayName(newsType: string[]): string {
   return displayNames[type] || type.charAt(0).toUpperCase() + type.slice(1);
 }
 
+
+export async function getAllTags(): Promise<NewsTag[]> {
+  const allNews = await getAllNews();
+  const tagsMap = new Map<string, string>();
+  
+  allNews.forEach((article) => {
+    if (article.newsTags?.nodes) {
+      article.newsTags.nodes.forEach((tag) => {
+        if (!tagsMap.has(tag.slug)) {
+          tagsMap.set(tag.slug, tag.name);
+        }
+      });
+    }
+  });
+  
+  return Array.from(tagsMap.entries()).map(([slug, name]) => ({ name, slug }));
+}

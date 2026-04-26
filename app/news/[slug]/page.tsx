@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getNewsBySlug, getAllNewsSlugs, formatDate, getNewsTypeDisplayName, decodeHtmlEntities, getAllNews } from '@/lib/wordpress'
+import { getNewsBySlug, getAllNewsSlugs, formatDate, decodeHtmlEntities, getAllNews } from '@/lib/wordpress'
 import type { Metadata } from 'next'
-import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, Share2, Bookmark, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Facebook, Twitter, Instagram, Linkedin, Award, Sparkles } from 'lucide-react'
+import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, Share2, Bookmark, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Facebook, Twitter, Instagram, Linkedin, Award, Sparkles, FolderOpen } from 'lucide-react'
 
 // Generate static paths at build time from WordPress
 export async function generateStaticParams() {
@@ -14,7 +14,34 @@ export async function generateStaticParams() {
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
-// Dynamic metadata for each news article (from WordPress)
+// Helper to get category display name
+function getCategoryDisplayName(categories: { name: string; slug: string }[] | undefined): string {
+  if (!categories || categories.length === 0) return 'News'
+  const categoryName = categories[0].name
+  const displayNames: Record<string, string> = {
+    admissions: 'Admissions',
+    events: 'Events',
+    blog: 'Blog',
+    news: 'News',
+  }
+  return displayNames[categoryName.toLowerCase()] || categoryName
+}
+
+// Helper to get category badge color
+function getCategoryColor(categories: { name: string; slug: string }[] | undefined): string {
+  if (!categories || categories.length === 0) return 'bg-blue-600'
+  const categorySlug = categories[0].slug.toLowerCase()
+  const colors: Record<string, string> = {
+    admissions: 'bg-green-600',
+    events: 'bg-purple-600',
+    blog: 'bg-blue-600',
+    news: 'bg-orange-600',
+  }
+  return colors[categorySlug] || 'bg-gray-600'
+}
+
+// app/news/[slug]/page.tsx
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const article = await getNewsBySlug(slug)
@@ -29,15 +56,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const websiteUrl = 'https://www.acop.co.ke'
   const articleUrl = `${websiteUrl}/news/${article.slug}`
   
-  let articleImage = 'https://plus.unsplash.com/premium_photo-1682284353484-4e16001c58eb?w=1200&h=630&fit=crop'
-  const featuredImage = article.newsMetadata?.featuredImage?.node?.mediaItemUrl
-  if (featuredImage) {
-    articleImage = featuredImage
-  }
-
-  const description = article.newsMetadata?.body 
-    ? decodeHtmlEntities(article.newsMetadata.body).replace(/<[^>]*>/g, '').substring(0, 160)
-    : article.title
+  // Get the featured image from WordPress
+  const featuredImageUrl = article.newsMetadata?.featuredImage?.node?.mediaItemUrl || null
+  
+  // Get description from excerpt or body
+  const description = article.newsMetadata?.excerpt 
+    ? decodeHtmlEntities(article.newsMetadata.excerpt)
+    : article.newsMetadata?.body 
+      ? decodeHtmlEntities(article.newsMetadata.body).replace(/<[^>]*>/g, '').substring(0, 160)
+      : article.title
 
   return {
     title: `${article.title} | Africana College of Professionals`,
@@ -49,19 +76,38 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: 'Africana College of Professionals',
       type: 'article',
       publishedTime: new Date(article.date).toISOString(),
-      images: [{ url: articleImage, width: 1200, height: 630, alt: article.title }],
+      images: featuredImageUrl ? [
+        {
+          url: featuredImageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ] : [],
     },
-    alternates: { canonical: articleUrl },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: description,
+      images: featuredImageUrl ? [featuredImageUrl] : [],
+    },
+    alternates: {
+      canonical: articleUrl,
+    },
   }
 }
 
-// Get related articles (same news type)
-async function getRelatedArticles(currentSlug: string, newsType: string[], currentId: string) {
+// Get related articles (by WordPress category)
+async function getRelatedArticles(currentSlug: string, currentCategories: { slug: string }[] | undefined, currentId: string) {
   const allNews = await getAllNews()
+  const currentCategorySlug = currentCategories?.[0]?.slug
+  
+  if (!currentCategorySlug) return []
+  
   return allNews
     .filter(article => 
       article.slug !== currentSlug && 
-      article.newsMetadata?.newsType?.[0] === newsType[0]
+      article.newsCategories?.nodes?.some(cat => cat.slug === currentCategorySlug)
     )
     .slice(0, 3)
 }
@@ -81,21 +127,22 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const isDeadline = primaryType === 'deadline'
   const isAdmissions = primaryType === 'admissions'
   
+  // Get WordPress category
+  const categoryName = getCategoryDisplayName(article.newsCategories?.nodes)
+  const categoryColor = getCategoryColor(article.newsCategories?.nodes)
+  
   const authorName = article.author?.node?.firstName || article.author?.node?.lastName
     ? `${article.author?.node?.firstName || ''} ${article.author?.node?.lastName || ''}`.trim()
     : article.author?.node?.name || null
   
   const formattedDate = formatDate(article.date)
-  const newsTypeDisplay = getNewsTypeDisplayName(metadata?.newsType || [])
   const decodedBody = decodeHtmlEntities(metadata?.body || '')
   
-  // Calculate reading time (dynamic)
+  // Calculate reading time
   const readingTime = Math.ceil(decodedBody.replace(/<[^>]*>/g, '').split(/\s+/).length / 200)
   const wordCount = decodedBody.replace(/<[^>]*>/g, '').split(/\s+/).length
   
-  const relatedArticles = await getRelatedArticles(slug, metadata?.newsType || [], article.id)
-
-  // Get author bio from WordPress user description
+  const relatedArticles = await getRelatedArticles(slug, article.newsCategories?.nodes, article.id)
   const authorBio = article.author?.node?.description || null
 
   const typeColors: Record<string, { bg: string; text: string; light: string }> = {
@@ -131,8 +178,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
               Back to News
             </Link>
             
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold mb-5 bg-white/20 backdrop-blur-sm text-white`}>
-              {newsTypeDisplay}
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold mb-5 text-white ${categoryColor}`}>
+              {categoryName}
             </span>
             
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight text-white">
@@ -187,7 +234,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                   </div>
                 )}
 
-                {/* Featured Image with Caption */}
+                {/* Featured Image */}
                 {metadata?.featuredImage?.node?.mediaItemUrl && (
                   <div className="mb-10">
                     <div className="relative w-full h-[350px] md:h-[450px] rounded-2xl overflow-hidden shadow-xl">
@@ -365,7 +412,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
 
             {/* Right Sidebar */}
             <aside className="lg:w-1/3 space-y-6">
-              {/* Author Card - Dynamic from WordPress */}
+              {/* Author Card */}
               {authorName && (
                 <div className="bg-gradient-to-r from-gray-50 to-white rounded-xl p-6 border border-gray-100 shadow-sm">
                   <div className="text-center">
@@ -391,7 +438,28 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {/* Quick Stats Card - Dynamic */}
+              {/* Categories Section */}
+              {article.newsCategories?.nodes?.length > 0 && (
+                <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <FolderOpen className="w-5 h-5 text-orange-500" />
+                    Categories
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {article.newsCategories.nodes.map((cat) => (
+                      <Link
+                        key={cat.slug}
+                        href={`/news?category=${cat.slug}`}
+                        className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-orange-100 hover:text-orange-600 transition-colors"
+                      >
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Quick Stats Card */}
               <div className="bg-gradient-to-r from-orange-50 to-purple-50 rounded-xl p-6 border border-orange-100">
                 <h3 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-orange-500" />
@@ -408,7 +476,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm">Category</span>
-                    <span className={`font-semibold ${typeColor.text}`}>{newsTypeDisplay}</span>
+                    <span className="font-semibold text-orange-600">{categoryName}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm">Last Updated</span>

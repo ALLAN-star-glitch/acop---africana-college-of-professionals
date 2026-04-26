@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TopHeader } from "@/components/header/TopHeader";
-import { MainHeader } from "@/components/header/MainHeader";
 import { Footer } from "@/components/footer/Footer";
 import Script from "next/script";
 import { MainHeaderWrapper } from "@/components/MainHeaderWrapper";
@@ -17,6 +16,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Viewport configuration (separate from metadata)
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
+// Metadata configuration
 export const metadata: Metadata = {
   title: "Africana College of Professionals | Professional Courses & Learning",
   description:
@@ -29,10 +35,9 @@ export const metadata: Metadata = {
     "online learning",
     "Kenya",
   ].join(", "),
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 
-  //  Canonical URL
+  // Canonical URL
   alternates: {
     canonical: "https://www.acop.co.ke/",
   },
