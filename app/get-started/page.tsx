@@ -1,4 +1,4 @@
-// app/request-info/page.tsx
+// app/get-started/page.tsx
 import { StudentConversionForm } from "@/components/StudentConversionForm";
 import { getAllCourses, getCourseTypeDisplayName, Course, decodeHtmlEntities } from "@/lib/wordpress";
 import { Calendar, Clock, Award, BookOpen, Users, MessageCircle, Mail, Phone, MapPin, CheckCircle, GraduationCap, Sparkles, Target, Briefcase, Heart, TrendingUp, Eye, Share2, Facebook, Twitter, Linkedin, LinkIcon } from "lucide-react";
@@ -10,13 +10,41 @@ import { ShareButtons } from "@/components/ShareButtons";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Request Information | Africana College of Professionals",
-  description: "Interested in our programs? Fill out this form to receive information about courses, fees, and admissions at Africana College.",
+  title: "Get Started | Apply Now | Africana College of Professionals",
+  description: "Start your journey with Africana College of Professionals. Fill out our form to receive course information, fee structure, and begin your application process today.",
+  keywords: [
+    "get started college",
+    "apply to college Kenya",
+    "start application",
+    "Africana College enrollment",
+    "begin your journey",
+    "register for courses",
+    "college application Kenya",
+  ].join(", "),
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://www.acop.co.ke/get-started",
+  },
   openGraph: {
-    title: "Request Information | Africana College of Professionals",
-    description: "Learn more about our diploma, certificate, and short courses.",
-    url: "https://www.acop.co.ke/request-info",
+    title: "Get Started | Apply to Africana College of Professionals",
+    description: "Start your application today. Fill out our form to begin your journey at Africana College.",
+    url: "https://www.acop.co.ke/get-started",
+    siteName: "Africana College of Professionals",
     type: "website",
+    images: [
+      {
+        url: "https://www.acop.co.ke/get-started-og.png",
+        width: 1200,
+        height: 630,
+        alt: "Get Started - Africana College of Professionals",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Get Started | Africana College of Professionals",
+    description: "Start your application process today.",
+    images: ["https://www.acop.co.ke/get-started-og.png"],
   },
 };
 
@@ -30,7 +58,7 @@ const cleanExcerpt = (text: string | null | undefined, maxLength: number = 100):
   return cleaned.substring(0, maxLength) + '...';
 };
 
-export default async function RequestInfoPage() {
+export default async function GetStartedPage() {
   const allCourses = await getAllCourses();
   
   // Get diploma courses (first 4)
@@ -62,10 +90,13 @@ export default async function RequestInfoPage() {
         <div className="container mx-auto px-4 py-16 md:py-20 relative">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-              Ready to Start Your Journey?
+              Get Started Today
             </h1>
             <p className="text-lg text-white/90 max-w-2xl mx-auto">
-              Take the first step towards a rewarding career at Africana College of Professionals
+              Begin your journey towards a rewarding career at Africana College of Professionals
+            </p>
+            <p className="text-sm text-white/70 mt-4">
+              Fill out the form below to receive course information, fee structure, and admission updates
             </p>
           </div>
         </div>
@@ -84,7 +115,7 @@ export default async function RequestInfoPage() {
           <aside className="lg:w-1/3 space-y-6">
             
             {/* Share Buttons */}
-            <ShareButtons title="Request Information - Africana College of Professionals" />
+            <ShareButtons title="Get Started - Africana College of Professionals" />
 
             {/* Quick Contact Card */}
             <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
@@ -327,8 +358,8 @@ export default async function RequestInfoPage() {
           Join Africana College of Professionals and take the first step towards a rewarding career
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/request-info" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-            Request Information
+          <Link href="/get-started" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            Get Started
           </Link>
           <Link href="/courses" className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
             Explore Courses
