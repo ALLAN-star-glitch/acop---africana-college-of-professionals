@@ -22,7 +22,7 @@ declare global {
 
 export function StudentConversionForm() {
   const formContainerRef = useRef<HTMLDivElement>(null);
-  const [isPageLoading, setIsPageLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const existingScript = document.querySelector('#hs-forms-script');
@@ -35,7 +35,7 @@ export function StudentConversionForm() {
           formId: "8d0817d9-373a-4a01-a512-234d542fab1e",
           target: `#${formContainerRef.current.id}`,
           onFormReady: () => {
-            setIsPageLoading(false);
+            setLoading(false);
           }
         });
       }
@@ -53,31 +53,28 @@ export function StudentConversionForm() {
       loadForm();
     }
 
-    // Reduced fallback timeout - 3 seconds
+    // Check for iframe to hide loading
+    const check = setInterval(() => {
+      const iframe = formContainerRef.current?.querySelector("iframe");
+      if (iframe) {
+        setLoading(false);
+        clearInterval(check);
+      }
+    }, 200);
+
+    // Fallback timeout - 8 seconds
     const timeoutId = setTimeout(() => {
-      setIsPageLoading(false);
-    }, 3000);
+      setLoading(false);
+    }, 8000);
 
     return () => {
       clearTimeout(timeoutId);
+      clearInterval(check);
       if (formContainerRef.current) {
         formContainerRef.current.innerHTML = '';
       }
     };
   }, []);
-
-  // Full page loading spinner
-  if (isPageLoading) {
-    return (
-      <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
-        <div className="relative w-12 h-12">
-          <div className="absolute inset-0 rounded-full border-4 border-gray-200"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-orange-600 border-t-transparent animate-spin"></div>
-        </div>
-        <p className="mt-3 text-gray-500 text-sm">Loading form...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -86,6 +83,18 @@ export function StudentConversionForm() {
         Interested in joining Africana College? Fill out this form and our admissions team will contact you.
       </p>
       
+      {/* Loading Spinner */}
+      {loading && (
+        <div className="flex flex-col items-center justify-center py-12">
+          <div className="relative w-12 h-12">
+            <div className="absolute inset-0 rounded-full border-4 border-gray-200"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-orange-600 border-t-transparent animate-spin"></div>
+          </div>
+          <p className="mt-4 text-gray-500 text-sm">Loading form...</p>
+        </div>
+      )}
+      
+      {/* HubSpot Form Container */}
       <div 
         id="hubspot-form-container"
         ref={formContainerRef}
@@ -93,6 +102,7 @@ export function StudentConversionForm() {
         data-region="eu1"
         data-form-id="8d0817d9-373a-4a01-a512-234d542fab1e"
         data-portal-id="144428117"
+        style={{ display: loading ? "none" : "block" }}
       ></div>
       
       <div className="mt-6 text-xs text-gray-400 text-center">

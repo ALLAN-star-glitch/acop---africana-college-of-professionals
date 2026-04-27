@@ -87,6 +87,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

@@ -6,7 +6,7 @@ export const desktopMenuItems = [
   { id: 'admission', label: 'Admission', href: '/admission' },
   { id: 'news', label: 'News', href: '/news' },  // Moved here
   { id: 'masomo', label: 'Masomo Portal', href: 'https://moodle-200882-0.cloudclusters.net/', external: true },
-  { id: 'contact', label: 'Contact', href: 'https://form.jotform.com/253172041859559', external: true },
+  { id: 'contact', label: 'Contact', href: '/contact' },
 ]
 
 export const authMenuItems = [
