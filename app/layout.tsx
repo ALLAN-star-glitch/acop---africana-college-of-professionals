@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -16,17 +17,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Viewport configuration (separate from metadata)
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
 
-// Metadata configuration
+// ✅ Layout metadata - ONLY global stuff, NO openGraph or twitter
 export const metadata: Metadata = {
-  title: "Africana College of Professionals | Professional Courses & Learning",
-  description:
-    "Join Africana College of Professionals to access top-tier professional courses, scholarships, and career development resources.",
+  title: {
+    default: "Africana College of Professionals",
+    template: "%s | Africana College of Professionals"
+  },
+  // Optional: generic fallback description (rarely used)
+  description: "Professional courses and training in Kenya",
   keywords: [
     "Africana College",
     "professional courses",
@@ -36,28 +39,11 @@ export const metadata: Metadata = {
     "Kenya",
   ].join(", "),
   robots: "index, follow",
-
-  // Canonical URL
   alternates: {
     canonical: "https://www.acop.co.ke/",
   },
-
-  openGraph: {
-    title: "Africana College of Professionals",
-    description:
-      "Access professional courses, scholarships, and career growth resources at Africana College of Professionals.",
-    url: "https://www.acop.co.ke/",
-    siteName: "Africana College of Professionals",
-    type: "website",
-    images: [
-      {
-        url: "https://plus.unsplash.com/premium_photo-1682284353484-4e16001c58eb?w=900&auto=format&fit=crop&q=60",
-        width: 1200,
-        height: 630,
-        alt: "Africana College of Professionals - Featured Image",
-      },
-    ],
-  },
+  // ❌ NO openGraph here
+  // ❌ NO twitter here
 };
 
 export default function RootLayout({
@@ -69,11 +55,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <TopHeader />
-        <MainHeaderWrapper /> {/* Server component fetches data */}
+        <MainHeaderWrapper />
         <main>{children}</main>
         <Footer />
 
-        {/* Poptin Script - ADD THIS */}
         <Script
           id="poptin-pixel"
           src="https://cdn.popt.in/pixel.js?id=fb66af3503d63"
@@ -81,12 +66,10 @@ export default function RootLayout({
           async={true}
         />
 
-        {/* Google Tag Manager */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DGCXCNRGHE"
           strategy="afterInteractive"
         />
-
 
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -97,7 +80,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Tawk.to Script */}
         <Script id="tawk-to" strategy="afterInteractive">
           {`
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
