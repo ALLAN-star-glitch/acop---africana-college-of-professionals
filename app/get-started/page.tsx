@@ -1,7 +1,7 @@
 // app/get-started/page.tsx
 import { StudentConversionForm } from "@/components/StudentConversionForm";
 import { getAllCourses, getCourseTypeDisplayName, Course, decodeHtmlEntities } from "@/lib/wordpress";
-import { Calendar, Clock, Award, BookOpen, Users, MessageCircle, Mail, Phone, MapPin, CheckCircle, GraduationCap, Sparkles, Target, Briefcase, Heart, TrendingUp, Eye, Share2, Facebook, Twitter, Linkedin, LinkIcon } from "lucide-react";
+import { Calendar, Clock, Award, BookOpen, Users, MessageCircle, Mail, Phone, MapPin, CheckCircle, GraduationCap, Sparkles, Target, Briefcase, Heart, TrendingUp, Eye, Share2, Facebook, Twitter, Linkedin, LinkIcon, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -106,9 +106,72 @@ export default async function GetStartedPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* Left Column - Form */}
-          <div className="lg:w-2/3">
-            <StudentConversionForm />
+          {/* Left Column - Form with May Intake Banner */}
+          <div className="lg:w-2/3 space-y-6">
+            
+            {/* May Intake Card with Image - Using Brand Colors */}
+            <div className="bg-gradient-to-r from-orange-500 to-purple-600 rounded-xl overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row">
+                {/* Image Side */}
+                <div className="md:w-2/5 relative min-h-[200px] md:min-h-full">
+                  <Image
+                    src="/acop2026intake.jpg"
+                    alt="May 2026 Intake - Apply Now at Africana College"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-900/40 to-purple-900/40 md:hidden"></div>
+                  <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                    Limited Seats
+                  </div>
+                </div>
+                
+                {/* Content Side */}
+                <div className="md:w-3/5 p-6 text-white">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Calendar className="w-5 h-5 text-orange-200" />
+                    <h3 className="font-bold text-lg">May 2026 Intake</h3>
+                  </div>
+                  <p className="text-2xl font-bold mb-1">Applications Open!</p>
+                  <p className="text-orange-100 text-sm mb-4">Secure your seat today</p>
+                  
+                  <div className="space-y-2 mb-5">
+                    <div className="flex items-center gap-2 text-sm text-white/90">
+                      <Clock className="w-4 h-4" />
+                      <span>Application Deadline: May 15, 2026</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/90">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Early bird discounts available</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/90">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Payment plans available</span>
+                    </div>
+                  </div>
+                  
+                  <a 
+                    href="#application-form"
+                    className="inline-flex items-center gap-2 bg-white text-orange-600 px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-100 transition-all group"
+                  >
+                    Get Started
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form with ID for scrolling */}
+            <div id="application-form" className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden scroll-mt-20">
+              <div className="bg-gradient-to-r from-orange-600 to-purple-700 px-6 py-4">
+                <h2 className="text-xl font-bold text-white">Start Your Application</h2>
+                <p className="text-white/80 text-sm">Fill out the form below to get started</p>
+              </div>
+              <div className="p-6">
+                <StudentConversionForm />
+              </div>
+            </div>
           </div>
 
           {/* Right Column - Dynamic Sidebar from WordPress */}
@@ -266,20 +329,6 @@ export default async function GetStartedPage() {
               </div>
             )}
 
-            {/* Upcoming Intake Card */}
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-6 border border-green-100">
-              <h3 className="font-bold text-lg text-gray-800 mb-3 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-green-600" />
-                Upcoming Intake
-              </h3>
-              <p className="text-2xl font-bold text-green-700 mb-2">May 2026 Intake</p>
-              <p className="text-sm text-gray-600 mb-4">Applications are now open! Limited seats available.</p>
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Application deadline: May 15, 2026</span>
-              </div>
-            </div>
-
             {/* Testimonial Card */}
             {featuredCourse && (
               <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
@@ -358,9 +407,9 @@ export default async function GetStartedPage() {
           Join Africana College of Professionals and take the first step towards a rewarding career
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link href="/get-started" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          <a href="#application-form" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
             Get Started
-          </Link>
+          </a>
           <Link href="/courses" className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
             Explore Courses
           </Link>
