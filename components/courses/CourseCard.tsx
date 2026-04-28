@@ -1,3 +1,4 @@
+// components/courses/CourseCard.tsx
 'use client';
 
 import React from 'react';
@@ -11,7 +12,7 @@ interface CourseCardProps {
 }
 
 // Helper to clean excerpt (strip HTML tags and decode entities)
-const cleanExcerpt = (text: string | null | undefined, maxLength: number = 120): string => {
+const cleanExcerpt = (text: string | null | undefined, maxLength: number = 100): string => {
   if (!text) return '';
   const decoded = decodeHtmlEntities(text);
   const plainText = decoded.replace(/<[^>]*>/g, '');
@@ -32,6 +33,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+      {/* Featured Image - Show fallback if no image */}
       <div className="relative h-48 w-full overflow-hidden">
         {featuredImage ? (
           <Image
@@ -43,7 +45,7 @@ export function CourseCard({ course }: CourseCardProps) {
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-orange-100 to-purple-100 flex items-center justify-center">
-            <span className="text-6xl">📚</span>
+            <span className="text-4xl">📚</span>
           </div>
         )}
         <div className="absolute top-3 right-3">
@@ -52,6 +54,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </span>
         </div>
       </div>
+      
       <div className="p-6">
         <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#4B0082] mb-3">
           {course.title}
@@ -71,7 +74,7 @@ export function CourseCard({ course }: CourseCardProps) {
         {course.courseDetails?.fee && (
           <div className="flex items-center gap-2 text-sm text-orange-600 font-semibold mb-3">
             <Award className="w-4 h-4" />
-            <span>{course.courseDetails.fee}</span>
+            <span>KSh {course.courseDetails.fee}</span>
           </div>
         )}
 
@@ -93,7 +96,7 @@ export function CourseCard({ course }: CourseCardProps) {
         {course.courseTags?.nodes?.length > 0 && (
           <div className="mt-4 pt-3 border-t border-gray-100">
             <div className="flex flex-wrap gap-2">
-              {course.courseTags.nodes.map((tag) => (
+              {course.courseTags.nodes.slice(0, 3).map((tag) => (
                 <Link
                   key={tag.slug}
                   href={`/courses/tag/${tag.slug}`}

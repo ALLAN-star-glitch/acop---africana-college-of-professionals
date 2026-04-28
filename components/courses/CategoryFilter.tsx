@@ -1,4 +1,3 @@
-// components/courses/CategoryFilter.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -34,6 +33,14 @@ export function CategoryFilter({
   const mainHeaderHeight = 56;
   const stickyTop = topHeaderHeight + mainHeaderHeight;
 
+  const handleCategoryClick = (categoryId: string) => {
+    onCategoryChange(categoryId);
+    // Dispatch event for SidebarFilter and CoursesGrid
+    window.dispatchEvent(new CustomEvent('categoryChange', { 
+      detail: { category: categoryId, search: '' } 
+    }));
+  };
+
   return (
     <section 
       id="category-filter-section"
@@ -58,7 +65,7 @@ export function CategoryFilter({
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => onCategoryChange(category.id)}
+              onClick={() => handleCategoryClick(category.id)}
               className={`
                 rounded-lg font-medium transition-all whitespace-nowrap
                 ${isSticky 

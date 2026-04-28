@@ -18,7 +18,7 @@ const HeroSection = () => {
   return (
     <section
       ref={heroRef}
-      className="relative h-[70vh] min-h-[500px] bg-cover bg-center flex items-center"
+      className="relative h-[50vh] min-h-[500px] bg-cover bg-center flex items-center"
     >
       <Image
               src="/about-background.jpg"

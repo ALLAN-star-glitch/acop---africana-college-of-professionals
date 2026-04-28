@@ -113,13 +113,39 @@ export default async function NewsPage({
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-orange-600 to-purple-700 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">News & Updates</h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
-            Stay informed with the latest happenings, intake announcements, and success stories from Africana College of Professionals
-          </p>
+      {/* Hero Section with Background Image and Animations - Same as Courses Page */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/news-og.png"
+            alt="News & Updates"
+            fill
+            priority
+            className="object-cover object-top"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-orange-500/60 z-10"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-3xl text-white">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 animate-fade-in-up">
+              News & Updates
+            </h1>
+            <p className="text-lg md:text-xl mb-5 animate-fade-in-up animation-delay-200">
+              Stay informed with the latest happenings, intake announcements, and success stories from Africana College of Professionals
+            </p>
+            <div className="animate-fade-in-up animation-delay-400">
+              <Link
+                href="/request-info"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md transition-colors shadow-lg inline-block"
+              >
+                Request Information
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

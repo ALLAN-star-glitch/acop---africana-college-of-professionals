@@ -81,21 +81,31 @@ export default async function GetStartedPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-orange-600 to-purple-700 overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+      {/* Hero Section with Background Image and Animations */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/get-started-og.png"
+            alt="Get Started - Africana College of Professionals"
+            fill
+            priority
+            className="object-cover object-top"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-orange-500/60 z-10"></div>
+        </div>
         
-        <div className="container mx-auto px-4 py-16 md:py-20 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-3xl mx-auto text-center text-white">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 animate-fade-in-up">
               Get Started Today
             </h1>
-            <p className="text-lg text-white/90 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl mb-3 animate-fade-in-up animation-delay-200">
               Begin your journey towards a rewarding career at Africana College of Professionals
             </p>
-            <p className="text-sm text-white/70 mt-4">
+            <p className="text-sm text-white/80 animate-fade-in-up animation-delay-400">
               Fill out the form below to receive course information, fee structure, and admission updates
             </p>
           </div>

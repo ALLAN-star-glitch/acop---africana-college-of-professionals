@@ -1,10 +1,11 @@
-import { getAllCourses, getCourseTypeDisplayName } from '@/lib/wordpress';
-import { CategoryFilterWrapper } from '@/components/courses/CategoryFilterWrapper';
+import { getAllCourses } from '@/lib/wordpress';
 import { CoursesGridWrapper } from '@/components/courses/CoursesGridWrapper';
 import { FeaturedCoursesWrapper } from '@/components/courses/FeaturedCoursesWrapper';
 import { WhyChoose } from '@/components/courses/WhyChooseUs';
 import { Metadata } from 'next';
-import Hero from '@/components/courses/Hero';
+import Link from 'next/link';
+import Image from 'next/image';
+import { SidebarFilter } from '@/components/SidebarFilter';
 
 export const revalidate = 60;
 
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/courses-background.JPG",
+        url: "https://www.acop.co.ke/courses.png",
         width: 1200,
         height: 630,
         alt: "Africana College Courses",
@@ -46,15 +47,11 @@ export const metadata: Metadata = {
 export default async function CoursesPage() {
   const allCourses = await getAllCourses();
 
-  // Get unique course types for categories
-  const categories = [
-    { id: 'all', label: 'All Courses' },
-    ...Array.from(new Set(allCourses.flatMap(course => 
-      course.courseDetails?.courseType || []
-    ))).map(type => ({
-      id: type,
-      label: getCourseTypeDisplayName([type])
-    }))
+  // Get course levels (Diploma, Certificate, Short Course)
+  const courseLevels = [
+    { id: 'diploma', label: 'Diploma', count: allCourses.filter(c => c.courseDetails?.courseType?.includes('diploma')).length },
+    { id: 'certificate', label: 'Certificate', count: allCourses.filter(c => c.courseDetails?.courseType?.includes('certificate')).length },
+    { id: 'short-course', label: 'Short Course', count: allCourses.filter(c => c.courseDetails?.courseType?.includes('short-course')).length },
   ];
 
   // Create JSON-LD structured data for all courses
@@ -77,7 +74,7 @@ export default async function CoursesPage() {
 
   return (
     <>
-      {/* JSON-LD structured data for all courses */}
+      {/* JSON-LD structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -85,14 +82,97 @@ export default async function CoursesPage() {
         }}
       />
 
-      {/* Courses UI */}
       <div className="min-h-screen bg-white">
         <main>
-          <Hero />
-          <CategoryFilterWrapper categories={categories} />
-          <CoursesGridWrapper allCourses={allCourses} />
+          {/* Hero Section with Background Image and Animations */}
+          <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/courses.png"
+                alt="Africana College Courses"
+                fill
+                priority
+                className="object-cover object-top scale-105 transition-transform duration-700 group-hover:scale-100"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/70 to-orange-500/60 z-10"></div>
+            </div>
+            
+            {/* Content */}
+            <div className="container mx-auto px-4 relative z-20">
+              <div className="max-w-3xl text-white">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in-up">
+                  Our Courses
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 animate-fade-in-up animation-delay-200">
+                  Explore our accredited diploma, certificate, and professional development programs designed for your career success
+                </p>
+                <div className="animate-fade-in-up animation-delay-400">
+                  <a
+                    href="https://form.jotform.com/253171134791556"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-md transition-colors shadow-lg inline-block"
+                  >
+                    Apply Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          {/* Two Column Layout */}
+          <div className="container mx-auto px-4 py-12">
+            <div className="flex flex-col lg:flex-row gap-8">
+              
+              {/* Sidebar Filter - Desktop */}
+              <div className="lg:w-1/4">
+                <SidebarFilter 
+                  courseLevels={courseLevels}
+                />
+              </div>
+
+              {/* Courses Grid */}
+              <div className="lg:w-3/4">
+                <CoursesGridWrapper 
+                  allCourses={allCourses} 
+                  activeCategory="all"
+                />
+              </div>
+            </div>
+          </div>
+          
           <FeaturedCoursesWrapper />
           <WhyChoose />
+
+          {/* CTA Section */}
+          <section className="bg-gradient-to-r from-purple-700 to-orange-600 text-white py-16 mt-8">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Ready to Start Your Journey?
+              </h2>
+              <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
+                Take the first step towards a rewarding career. Apply for May 2026 intake today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://form.jotform.com/253171134791556"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Apply Now
+                </a>
+                <Link
+                  href="/request-info"
+                  className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+                >
+                  Request Information
+                </Link>
+              </div>
+            </div>
+          </section>
         </main>
       </div>
     </>

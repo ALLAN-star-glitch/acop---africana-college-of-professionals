@@ -28,6 +28,11 @@
   --color-primary: var(--color-primary);
   --color-accent: var(--color-accent);
   --color-lavender: var(--color-lavender);
+  
+  /* Register custom animations */
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-color-spread: color-spread 2.8s ease-out infinite;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,24 +49,76 @@ body {
 }
 
 /* --------------------------------------------- */
-/*  CUSTOM ANIMATION FOR PLAY ICON      */
+/*  CUSTOM KEYFRAMES                             */
 /* --------------------------------------------- */
-@layer utilities {
-  /* Color spread ripple pulse */
-  @keyframes color-spread {
-    0% {
-      box-shadow: 0 0 0 0 rgba(75, 0, 130, 0.5); /* primary color glow */
-    }
-    70% {
-      box-shadow: 0 0 0 20px rgba(75, 0, 130, 0); /* expanded & invisible */
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(75, 0, 130, 0);
-    }
+@keyframes color-spread {
+  0% {
+    box-shadow: 0 0 0 0 rgba(75, 0, 130, 0.5);
   }
-
-  .animate-color-spread {
-    animation: color-spread 2.8s ease-out infinite;
+  70% {
+    box-shadow: 0 0 0 20px rgba(75, 0, 130, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(75, 0, 130, 0);
   }
 }
 
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation delay utilities */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+/* Add to your globals.css */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out;
+}
