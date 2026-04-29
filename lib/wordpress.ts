@@ -553,22 +553,30 @@ export async function getAllCourses(): Promise<Course[]> {
   
   console.log(`✅ Total courses fetched: ${allCourses.length}`);
   
-  // Sort courses to prioritize Counseling Psychology courses
-  return prioritizeCounselingPsychologyCourses(allCourses);
+  // Sort courses to prioritize Marriage & Family AND Counseling Psychology courses
+  return prioritizePriorityCourses(allCourses);
 }
 
-// Helper function to prioritize specific courses
-function prioritizeCounselingPsychologyCourses(courses: Course[]): Course[] {
+// Helper function to prioritize Marriage & Family and Counseling Psychology courses
+// Helper function to prioritize Counseling Psychology and Marriage & Family courses
+function prioritizePriorityCourses(courses: Course[]): Course[] {
   // Debug: Log all course titles
   console.log('📚 All course titles from WordPress:');
   courses.forEach(course => {
     console.log(`  - "${course.title}" (${course.courseDetails?.courseType?.[0] || 'no type'})`);
   });
   
-  // Define priority keywords for counselling/psychology
+  // Define priority keywords for both course types
   const priorityKeywords = [
+    // Counseling Psychology related (highest priority)
     'counseling psychology',
-    'counselling psychology'
+    'counselling psychology',
+    // Marriage & Family related
+    'marriage and family',
+    'marriage & family',
+    'family therapy',
+    'couples counseling',
+    'couples counselling'
   ];
   
   // Separate courses into priority and non-priority
@@ -589,27 +597,42 @@ function prioritizeCounselingPsychologyCourses(courses: Course[]): Course[] {
     }
   });
   
-  // Sort priority courses: Diploma first, then Certificate
+  // Sort priority courses by custom order:
+  // 1. Diploma in Counseling Psychology (highest priority)
+  // 2. Certificate in Counseling Psychology
+  // 3. Diploma in Marriage and Family
+  // 4. Any other priority courses (by type: diploma > certificate > short-course)
   priorityCourses.sort((a, b) => {
+    const aTitle = a.title.toLowerCase();
+    const bTitle = b.title.toLowerCase();
     const aType = a.courseDetails?.courseType?.[0] || '';
     const bType = b.courseDetails?.courseType?.[0] || '';
     
-    // Define order: diploma (1), certificate (2), short-course (3)
-    const getTypePriority = (type: string) => {
-      if (type === 'diploma') return 1;
-      if (type === 'certificate') return 2;
-      if (type === 'short-course') return 3;
-      return 4;
+    // Define specific priority order
+    const getSpecificPriority = (title: string, type: string): number => {
+      // Highest priority: Diploma in Counseling Psychology
+      if (title.includes('diploma') && (title.includes('counseling psychology') || title.includes('counselling psychology'))) return 1;
+      // Second priority: Certificate in Counseling Psychology
+      if (title.includes('certificate') && (title.includes('counseling psychology') || title.includes('counselling psychology'))) return 2;
+      // Third priority: Diploma in Marriage and Family
+      if (title.includes('diploma in marriage and family')) return 3;
+      // Fourth priority: Any other diploma in priority list
+      if (type === 'diploma') return 4;
+      // Fifth priority: Any other certificate in priority list
+      if (type === 'certificate') return 5;
+      // Sixth priority: Short courses in priority list
+      if (type === 'short-course') return 6;
+      return 7;
     };
     
-    const aPriority = getTypePriority(aType);
-    const bPriority = getTypePriority(bType);
+    const aPriority = getSpecificPriority(aTitle, aType);
+    const bPriority = getSpecificPriority(bTitle, bType);
     
     if (aPriority !== bPriority) {
       return aPriority - bPriority;
     }
     
-    // If same type, sort by date (newest first)
+    // If same priority, sort by date (newest first)
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
   
@@ -617,7 +640,7 @@ function prioritizeCounselingPsychologyCourses(courses: Course[]): Course[] {
   if (priorityCourses.length > 0) {
     console.log('Priority course order:');
     priorityCourses.forEach((course, idx) => {
-      console.log(`  ${idx + 1}. ${course.title} (${course.courseDetails?.courseType?.[0]})`);
+      console.log(`  ${idx + 1}. ${course.title} (${course.courseDetails?.courseType?.[0] || 'no type'})`);
     });
   }
   console.log(`📊 Other courses: ${otherCourses.length}`);
