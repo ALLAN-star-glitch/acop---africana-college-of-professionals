@@ -465,59 +465,141 @@ export async function getAllTags(): Promise<NewsTag[]> {
 // Course Functions (New)
 // ============================================
 
-// Get all courses
+// lib/wordpress.ts
+
 export async function getAllCourses(): Promise<Course[]> {
-  const data = await fetchAPI<AllCoursesResponse>(`
-    query GetAllCourses {
-      courses {
-        nodes {
-          id
-          title
-          date
-          slug
-          excerpt
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-              mediaDetails {
-                width
-                height
+  let allCourses: Course[] = [];
+  let hasNextPage = true;
+  let after = '';
+  
+  while (hasNextPage) {
+    const data = await fetchAPI<AllCoursesResponse>(`
+      query GetAllCourses($first: Int = 100, $after: String = "") {
+        courses(first: $first, after: $after) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            id
+            title
+            date
+            slug
+            excerpt
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+                mediaDetails {
+                  width
+                  height
+                }
               }
             }
-          }
-          courseDetails {
-            courseType
-            courseCode
-            duration
-            fee
-            intakeMonths
-            studyMode
-            leadInstructor
-            specialization
-            careerPathways
-            entryRequirements
-            syllabus
-            videoUrl
-          }
-          courseCategories {
-            nodes {
-              name
-              slug
+            courseDetails {
+              courseType
+              courseCode
+              duration
+              fee
+              intakeMonths
+              studyMode
+              leadInstructor
+              specialization
+              careerPathways
+              entryRequirements
+              syllabus
+              videoUrl
             }
-          }
-          courseTags {
-            nodes {
-              name
-              slug
+            courseCategories {
+              nodes {
+                name
+                slug
+              }
+            }
+            courseTags {
+              nodes {
+                name
+                slug
+              }
             }
           }
         }
       }
+    `, { variables: { first: 100, after } });
+    
+    const page = data?.courses;
+    if (page?.nodes) {
+      allCourses = [...allCourses, ...page.nodes];
     }
-  `);
+    
+    hasNextPage = page?.pageInfo?.hasNextPage || false;
+    after = page?.pageInfo?.endCursor || '';
+    
+    // Safety break to prevent infinite loops
+    if (allCourses.length > 1000) break;
+  }
+  
+  console.log(`Total courses fetched: ${allCourses.length}`);
+  
+  // Sort courses to prioritize Counseling Psychology courses
+  return prioritizeCounselingPsychologyCourses(allCourses);
+}
 
-  return data?.courses?.nodes || [];
+
+// Helper function to prioritize specific courses
+function prioritizeCounselingPsychologyCourses(courses: Course[]): Course[] {
+  // Debug: Log all course titles to see what you're getting
+  console.log('All course titles from WordPress:');
+  courses.forEach(course => {
+    console.log(`- "${course.title}"`);
+  });
+  
+  // Define the priority titles with more flexible matching
+  const priorityKeywords = [
+    'counseling psychology',
+    'counselling psychology'  // British spelling variant
+  ];
+  
+  // Separate courses into priority and non-priority
+  const priorityCourses: Course[] = [];
+  const otherCourses: Course[] = [];
+  
+  courses.forEach(course => {
+    const titleLower = course.title.toLowerCase();
+    const isPriority = priorityKeywords.some(keyword => 
+      titleLower.includes(keyword)
+    );
+    
+    if (isPriority) {
+      console.log(`✓ Found priority course: "${course.title}"`);
+      priorityCourses.push(course);
+    } else {
+      otherCourses.push(course);
+    }
+  });
+  
+  // Sort priority courses: Diploma first, then Certificate
+  priorityCourses.sort((a, b) => {
+    const aTitle = a.title.toLowerCase();
+    const bTitle = b.title.toLowerCase();
+    
+    const aIsDiploma = aTitle.includes('diploma');
+    const bIsDiploma = bTitle.includes('diploma');
+    const aIsCertificate = aTitle.includes('certificate');
+    const bIsCertificate = bTitle.includes('certificate');
+    
+    if (aIsDiploma && !bIsDiploma) return -1;
+    if (!aIsDiploma && bIsDiploma) return 1;
+    if (aIsCertificate && !bIsCertificate) return -1;
+    if (!aIsCertificate && bIsCertificate) return 1;
+    return 0;
+  });
+  
+  console.log(`Priority courses found: ${priorityCourses.length}`);
+  console.log(`Other courses: ${otherCourses.length}`);
+  
+  // Return priority courses first, then the rest
+  return [...priorityCourses, ...otherCourses];
 }
 
 // Get single course by slug
