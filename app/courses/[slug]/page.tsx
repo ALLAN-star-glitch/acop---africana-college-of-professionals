@@ -192,8 +192,15 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
         </div>
       </div>
 
+      {/* Share Buttons - Just below hero (same positioning as courses page) */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex justify-center">
+          <ShareButtons title={course.title} shareText="Share this course" />
+        </div>
+      </div>
+
       {/* Main Content Area */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main Content - Left Column */}
@@ -265,11 +272,8 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               )}
             </article>
 
-            {/* Right Sidebar - Share buttons at the top like news page */}
+            {/* Right Sidebar */}
             <aside className="lg:w-1/3 space-y-6">
-              {/* Share Buttons - At the top of sidebar like news page */}
-              <ShareButtons title={course.title} shareText="Share this course" />
-
               {/* Video Card */}
               {embedUrl && (
                 <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">

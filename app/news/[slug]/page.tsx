@@ -200,8 +200,15 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
         </div>
       </div>
 
+      {/* Share Buttons - Just below hero (same positioning as courses page) */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex justify-center">
+          <ShareButtons title={article.title} shareText="Share this article" />
+        </div>
+      </div>
+
       {/* Main Content Area */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main Content - Left Column */}
@@ -304,10 +311,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
               </div>
             </article>
 
-            {/* Right Sidebar - Using Brand Colors */}
+            {/* Right Sidebar */}
             <aside className="lg:w-1/3 space-y-6">
-              <ShareButtons title={article.title} shareText='Share this article' />
-
               {/* Attachment Card */}
               {metadata?.attachment?.node?.mediaItemUrl && (
                 <div className="bg-orange-50 rounded-xl p-6 border border-orange-100 shadow-sm">
@@ -332,7 +337,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {/* Tags Section - Moved to Sidebar */}
+              {/* Tags Section */}
               {article.newsTags?.nodes?.length > 0 && (
                 <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
                   <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
