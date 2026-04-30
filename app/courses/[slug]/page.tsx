@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 import { Calendar, Clock, Award, BookOpen, Briefcase, GraduationCap, ChevronRight, MapPin, Phone, Mail, Globe, CheckCircle, Users, Target, FolderOpen, Tag, PlayCircle } from 'lucide-react';
 import { ShareButtons } from '@/components/ShareButtons';
 
+
+export const dynamicParams = true; // Enable dynamic routing for new courses added after build time 
 // Generate static paths at build time from WordPress
 export async function generateStaticParams() {
   const courses = await getAllCourseSlugs();

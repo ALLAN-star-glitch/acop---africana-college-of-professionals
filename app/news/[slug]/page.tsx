@@ -6,6 +6,8 @@ import type { Metadata } from 'next'
 import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Award, Sparkles, FolderOpen, FileText, Tag } from 'lucide-react'
 import { ShareButtons } from '@/components/ShareButtons'
 
+
+export const dynamicParams = true
 // Generate static paths at build time from WordPress
 export async function generateStaticParams() {
   const articles = await getAllNewsSlugs()
