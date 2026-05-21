@@ -20,6 +20,15 @@ export interface Author {
     avatar: {
       url: string;
     } | null;
+    // Social fields (now working!)
+    twitter?: string | null;
+    youtube?: string | null;
+    facebook?: string | null;
+    tiktok?: string | null;
+    linkedin?: string | null;
+    instagram?: string | null;
+    website?: string | null;
+    phone?: string | null;
   };
 }
 
@@ -299,6 +308,13 @@ export async function getAllNews(): Promise<NewsArticle[]> {
               avatar {
                 url
               }
+              twitter
+              tiktok
+              facebook
+              linkedin
+              instagram
+              phone
+              website
             }
           }
           newsCategories {
@@ -369,6 +385,14 @@ export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
             avatar {
               url
             }
+            twitter
+            tiktok
+            facebook
+            linkedin
+            instagram
+            youtube
+            website
+            phone
           }
         }
         newsCategories {

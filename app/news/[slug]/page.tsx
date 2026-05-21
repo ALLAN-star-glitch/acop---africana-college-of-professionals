@@ -3,11 +3,22 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getNewsBySlug, getAllNewsSlugs, formatDate, decodeHtmlEntities, getAllNews } from '@/lib/wordpress'
 import type { Metadata } from 'next'
-import { Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, ChevronRight, Clock, Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Award, Sparkles, FolderOpen, FileText, Tag } from 'lucide-react'
+import { 
+  Calendar, MapPin, Link as LinkIcon, AlertTriangle, Download, ChevronRight, Clock, 
+  Eye, MessageCircle, TrendingUp, Mail, Phone, Map, Award, Sparkles, FolderOpen, 
+  FileText, Tag, Twitter, Facebook, Linkedin, Instagram, Youtube, Globe, User 
+} from 'lucide-react'
 import { ShareButtons } from '@/components/ShareButtons'
 
+// TikTok icon component (Lucide doesn't have TikTok yet)
+const TikTokIcon = ({ className = "w-4 h-4" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export const dynamicParams = true
+
 // Generate static paths at build time from WordPress
 export async function generateStaticParams() {
   const articles = await getAllNewsSlugs()
@@ -135,6 +146,21 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const relatedArticles = await getRelatedArticles(slug, article.newsCategories?.nodes, article.id)
   const authorBio = article.author?.node?.description || null
 
+  // Get social links from author
+  const socialLinks = {
+    twitter: article.author?.node?.twitter,
+    tiktok: article.author?.node?.tiktok,
+    facebook: article.author?.node?.facebook,
+    linkedin: article.author?.node?.linkedin,
+    instagram: article.author?.node?.instagram,
+    youtube: article.author?.node?.youtube,
+    website: article.author?.node?.website,
+    phone: article.author?.node?.phone,
+    email: article.author?.node?.email,
+  }
+
+  const hasSocialLinks = Object.values(socialLinks).some(link => link);
+
   function getExcerptFromBody(body: string, maxLength: number): string {
     const plainText = body.replace(/<[^>]*>/g, '')
     if (plainText.length <= maxLength) return plainText
@@ -202,7 +228,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
         </div>
       </div>
 
-      {/* Share Buttons - Just below hero (same positioning as courses page) */}
+      {/* Share Buttons - Just below hero */}
       <div className="container mx-auto px-4 py-6">
         <div className="flex justify-center">
           <ShareButtons title={article.title} shareText="Share this article" />
@@ -360,18 +386,195 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              {/* Author Card */}
+          
+             {/* Enhanced Professional Author Card */}
+
               {authorName && (
-                <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+                <div className="bg-gradient-to-br from-white to-orange-50 rounded-xl p-6 border border-orange-100 shadow-lg hover:shadow-xl transition-all duration-300">
+                  {/* Decorative top bar */}
+                  <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-purple-600 rounded-full mx-auto mb-6"></div>
+                  
                   <div className="text-center">
+                    {/* Avatar with ring effect */}
                     {article.author?.node?.avatar?.url && (
-                      <div className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 ring-4 ring-orange-100">
-                        <Image src={article.author.node.avatar.url} alt={authorName} fill className="object-cover" unoptimized />
+                      <div className="relative inline-block">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 blur-md opacity-60"></div>
+                        <div className="relative w-24 h-24 rounded-full overflow-hidden ring-4 ring-white shadow-xl mx-auto mb-4">
+                          <Image 
+                            src={article.author.node.avatar.url} 
+                            alt={authorName} 
+                            fill 
+                            className="object-cover" 
+                            unoptimized 
+                          />
+                        </div>
                       </div>
                     )}
-                    <h3 className="font-bold text-xl text-gray-800">{authorName}</h3>
-                    <p className="text-gray-500 text-sm mt-1">{article.author?.node?.nickname || 'Staff Writer'}</p>
-                    {authorBio && <p className="text-gray-500 text-xs mt-2">{authorBio}</p>}
+                    
+                    {/* Author Name with gradient text */}
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-purple-700 bg-clip-text text-transparent mb-1">
+                      {authorName}
+                    </h3>
+                    
+                    {/* Author Title/Role */}
+                    <p className="text-gray-500 text-sm mb-3 flex items-center justify-center gap-2">
+                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                      {article.author?.node?.nickname || 'Author'}
+                    </p>
+                    
+                    {/* Bio with better styling */}
+                    {authorBio && (
+                      <div className="mt-3 p-3 bg-white/50 rounded-lg">
+                        <p className="text-gray-600 text-sm leading-relaxed italic">
+                          &quot;{authorBio}&quot;
+                        </p>
+                      </div>
+                    )}
+                    
+                    {/* Contact Info - Professional styling */}
+                    {(socialLinks.email || socialLinks.phone) && (
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <div className="space-y-2">
+                          {socialLinks.email && (
+                            <a
+                              href={`mailto:${socialLinks.email}`}
+                              className="flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-orange-600 transition-colors group"
+                            >
+                              <div className="p-1 rounded-full bg-orange-100 group-hover:bg-orange-200 transition-colors">
+                                <Mail className="w-3 h-3 text-orange-600" />
+                              </div>
+                              <span>{socialLinks.email}</span>
+                            </a>
+                          )}
+                          {socialLinks.phone && (
+                            <a
+                              href={`tel:${socialLinks.phone}`}
+                              className="flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-orange-600 transition-colors group"
+                            >
+                              <div className="p-1 rounded-full bg-orange-100 group-hover:bg-orange-200 transition-colors">
+                                <Phone className="w-3 h-3 text-orange-600" />
+                              </div>
+                              <span>{socialLinks.phone}</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Social Links - Professional Grid Layout */}
+                    {hasSocialLinks && (
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">Connect With Me</p>
+                        <div className="flex flex-wrap justify-center gap-2">
+                          {socialLinks.twitter && (
+                            <a
+                              href={socialLinks.twitter}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Follow on Twitter/X"
+                            >
+                              <Twitter className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Twitter
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.tiktok && (
+                            <a
+                              href={socialLinks.tiktok}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Follow on TikTok"
+                            >
+                              <TikTokIcon className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                TikTok
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.facebook && (
+                            <a
+                              href={socialLinks.facebook}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-[#1877f2] hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Follow on Facebook"
+                            >
+                              <Facebook className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Facebook
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.linkedin && (
+                            <a
+                              href={socialLinks.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-[#0a66c2] hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Connect on LinkedIn"
+                            >
+                              <Linkedin className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                LinkedIn
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.instagram && (
+                            <a
+                              href={socialLinks.instagram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gradient-to-r hover:from-[#f09433] hover:via-[#d62976] hover:to-[#962fbf] hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Follow on Instagram"
+                            >
+                              <Instagram className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Instagram
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.youtube && (
+                            <a
+                              href={socialLinks.youtube}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-[#ff0000] hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Subscribe on YouTube"
+                            >
+                              <Youtube className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                YouTube
+                              </span>
+                            </a>
+                          )}
+                          
+                          {socialLinks.website && (
+                            <a
+                              href={socialLinks.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+                              title="Personal Website"
+                            >
+                              <Globe className="w-4 h-4" />
+                              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Website
+                              </span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                
                   </div>
                 </div>
               )}
