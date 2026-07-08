@@ -10,41 +10,44 @@ import { ShareButtons } from "@/components/ShareButtons";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Get Started | Apply Now | Africana College of Professionals",
-  description: "Start your journey with Africana College of Professionals. Fill out our form to receive course information, fee structure, and begin your application process today.",
+  title: "September 2026 Intake | Apply Now | Africana College of Professionals",
+  description: "Join the September 2026 intake at Africana College of Professionals. Start your purpose-driven journey with our accredited programs. Apply now for diploma, certificate, and professional courses.",
   keywords: [
-    "get started college",
-    "apply to college Kenya",
-    "start application",
-    "Africana College enrollment",
-    "begin your journey",
-    "register for courses",
+    "September 2026 intake",
     "college application Kenya",
+    "Africana College enrollment",
+    "purpose-driven education",
+    "professional courses Kenya",
+    "diploma programs 2026",
+    "certificate courses Kenya",
+    "start your journey",
+    "college admissions 2026",
+    "TVET accredited college",
   ].join(", "),
   robots: "index, follow",
   alternates: {
     canonical: "https://www.acop.co.ke/get-started",
   },
   openGraph: {
-    title: "Get Started | Apply to Africana College of Professionals",
-    description: "Start your application today. Fill out our form to begin your journey at Africana College.",
+    title: "September 2026 Intake | Apply to Africana College of Professionals",
+    description: "Start your purpose-driven journey with Africana College. September 2026 intake now open. Apply today for diploma, certificate, and professional courses.",
     url: "https://www.acop.co.ke/get-started",
     siteName: "Africana College of Professionals",
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/get-started-og.png",
+        url: "https://www.acop.co.ke/Septemberintake2026.webp",
         width: 1200,
         height: 630,
-        alt: "Get Started - Africana College of Professionals",
+        alt: "September 2026 Intake - Africana College of Professionals",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Get Started | Africana College of Professionals",
-    description: "Start your application process today.",
-    images: ["https://www.acop.co.ke/get-started-og.png"],
+    title: "September 2026 Intake | Africana College of Professionals",
+    description: "Join the September 2026 intake. Start your purpose-driven journey with Africana College.",
+    images: ["https://www.acop.co.ke/Septemberintake2026.webp"],
   },
 };
 
@@ -86,8 +89,8 @@ export default async function GetStartedPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/get-started-og.png"
-            alt="Get Started - Africana College of Professionals"
+            src="/Septemberintake2026.webp"
+            alt="September 2026 Intake - Africana College of Professionals"
             fill
             priority
             className="object-cover object-top"
@@ -100,10 +103,10 @@ export default async function GetStartedPage() {
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 animate-fade-in-up">
-              Get Started Today
+              September 2026 Intake Now Open
             </h1>
             <p className="text-lg md:text-xl mb-3 animate-fade-in-up animation-delay-200">
-              Begin your journey towards a rewarding career at Africana College of Professionals
+              Start Your Purpose-Driven Journey at Africana College of Professionals
             </p>
             <p className="text-sm text-white/80 animate-fade-in-up animation-delay-400">
               Fill out the form below to receive course information, fee structure, and admission updates
@@ -115,7 +118,7 @@ export default async function GetStartedPage() {
       {/* Share Buttons - Just below hero (consistent with other pages) */}
       <div className="container mx-auto px-4 py-6">
         <div className="flex justify-center">
-          <ShareButtons title="Get Started - Africana College of Professionals" shareText="Share this page" />
+          <ShareButtons title="September 2026 Intake - Africana College of Professionals" shareText="Share this page" />
         </div>
       </div>
 
@@ -123,17 +126,17 @@ export default async function GetStartedPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* Left Column - Form with May Intake Banner */}
+          {/* Left Column - Form with Intake Banner */}
           <div className="lg:w-2/3 space-y-6">
             
-            {/* May Intake Card with Image - Using Brand Colors */}
+            {/* September Intake Card with Image - Using Brand Colors */}
             <div className="bg-gradient-to-r from-orange-500 to-purple-600 rounded-xl overflow-hidden shadow-lg">
               <div className="flex flex-col md:flex-row">
                 {/* Image Side */}
                 <div className="md:w-2/5 relative min-h-[200px] md:min-h-full">
                   <Image
-                    src="/acop2026intake.jpg"
-                    alt="May 2026 Intake - Apply Now at Africana College"
+                    src="/Septemberintake2026.webp"
+                    alt="September 2026 Intake - Apply Now at Africana College"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 40vw"
@@ -148,15 +151,15 @@ export default async function GetStartedPage() {
                 <div className="md:w-3/5 p-6 text-white">
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-5 h-5 text-orange-200" />
-                    <h3 className="font-bold text-lg">May 2026 Intake</h3>
+                    <h3 className="font-bold text-lg">September 2026 Intake</h3>
                   </div>
-                  <p className="text-2xl font-bold mb-1">Applications Open!</p>
-                  <p className="text-orange-100 text-sm mb-4">Secure your seat today</p>
+                  <p className="text-2xl font-bold mb-1">Applications Now Open!</p>
+                  <p className="text-orange-100 text-sm mb-4">Start your purpose-driven journey today</p>
                   
                   <div className="space-y-2 mb-5">
                     <div className="flex items-center gap-2 text-sm text-white/90">
                       <Clock className="w-4 h-4" />
-                      <span>Application Deadline: May 15, 2026</span>
+                      <span>Application Deadline: August 31, 2026</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-white/90">
                       <CheckCircle className="w-4 h-4" />
@@ -164,17 +167,21 @@ export default async function GetStartedPage() {
                     </div>
                     <div className="flex items-center gap-2 text-sm text-white/90">
                       <CheckCircle className="w-4 h-4" />
-                      <span>Payment plans available</span>
+                      <span>Flexible payment plans available</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-white/90">
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Accredited diploma & certificate programs</span>
                     </div>
                   </div>
                   
-                  <a 
-                    href="#application-form"
+                  <Link
+                    href="/courses"
                     className="inline-flex items-center gap-2 bg-white text-orange-600 px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-100 transition-all group"
                   >
-                    Get Started
+                    Our Courses
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -239,15 +246,15 @@ export default async function GetStartedPage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">Purpose-driven education & mentorship</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-gray-700">Flexible learning (Virtual & Physical)</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-gray-700">Experienced lecturers & mentors</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Affordable payment plans</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -353,15 +360,15 @@ export default async function GetStartedPage() {
                 <div className="space-y-4">
                   <div className="border-b border-gray-100 pb-3">
                     <p className="text-sm text-gray-600 italic">
-                      &quot;The {cleanExcerpt(featuredCourse.title, 50)} program gave me the skills and confidence to excel in my career. The lecturers were very supportive.&quot;
+                      &quot;The {cleanExcerpt(featuredCourse.title, 50)} program gave me the skills and confidence to excel in my career. The lecturers were very supportive and the purpose-driven approach made all the difference.&quot;
                     </p>
-                    <p className="text-xs font-semibold text-gray-800 mt-2">— Successful Graduate</p>
+                    <p className="text-xs font-semibold text-gray-800 mt-2">— Successful Graduate, Class of 2025</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600 italic">
-                      &quot;Flexible learning allowed me to work while studying. I highly recommend Africana College for quality education.&quot;
+                      &quot;Flexible learning allowed me to work while studying. I highly recommend Africana College for quality, purpose-driven education that prepares you for the real world.&quot;
                     </p>
-                    <p className="text-xs font-semibold text-gray-800 mt-2">— Working Professional</p>
+                    <p className="text-xs font-semibold text-gray-800 mt-2">— Working Professional, Current Student</p>
                   </div>
                 </div>
               </div>
@@ -416,16 +423,16 @@ export default async function GetStartedPage() {
 
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gradient-to-r from-orange-600 to-purple-700 rounded-2xl text-center text-white shadow-xl">
-        <h3 className="text-2xl font-bold mb-3">Start Your Professional Journey Today</h3>
+        <h3 className="text-2xl font-bold mb-3">Start Your Purpose-Driven Journey Today</h3>
         <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-          Join Africana College of Professionals and take the first step towards a rewarding career
+          Join Africana College of Professionals for the September 2026 intake and take the first step towards a rewarding career
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a href="#application-form" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-            Get Started
+            Apply Now
           </a>
           <Link href="/courses" className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-            Explore Courses
+            Our Courses
           </Link>
         </div>
       </div>

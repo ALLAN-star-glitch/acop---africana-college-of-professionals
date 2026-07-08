@@ -347,7 +347,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                     </h3>
                     {metadata?.deadlineDate && <p className="text-2xl font-bold text-orange-600 mb-3">{metadata.deadlineDate}</p>}
                     {metadata?.submissionLink && (
-                      <a href={metadata.submissionLink} target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-700 transition-colors">Apply Now →</a>
+                      <a href="/get-started" className="inline-block bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-700 transition-colors">Apply Now →</a>
                     )}
                   </div>
                 )}
@@ -739,7 +739,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
               <div className="bg-orange-50 rounded-xl p-6 border border-orange-100 text-center">
                 <h3 className="font-bold text-gray-800 mb-2">🚀 Ready to Apply?</h3>
                 <p className="text-gray-600 text-sm mb-4">Start your journey at Africana College today</p>
-                <Link href="https://form.jotform.com/253171134791556" target="_blank" rel="noopener noreferrer" className="inline-block bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-orange-700 transition-colors w-full text-center">
+                <Link href="/get-started" className="inline-block bg-orange-600 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-orange-700 transition-colors w-full text-center">
                   Apply Now
                 </Link>
               </div>
@@ -751,7 +751,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
             <h3 className="text-2xl font-bold mb-3">Start Your Professional Journey Today</h3>
             <p className="text-white/90 mb-6 max-w-2xl mx-auto">Join Africana College of Professionals and take the first step towards a rewarding career</p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="https://form.jotform.com/253171134791556" target="_blank" rel="noopener noreferrer" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              <Link href="/get-started" className="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                 Apply Now
               </Link>
               <Link href="/courses" className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">

@@ -7,9 +7,9 @@ import Link from "next/link";
 const slides = [
   {
     id: 1,
-    title: "May 2026 Intake NOW OPEN! Africana College of Professioals",
-    subtitle: "Home of Quality Education",
-    bgImage: "/acop2026intake.jpg",
+    title: "September 2026 Intake Now Open!",
+    subtitle: "Start Your Purpose Journey with Africana College of Professionals",
+    bgImage: "/Septemberintake2026.webp",
     primaryCta: "Apply Now",
     secondaryCta: "Explore Courses",
   },
@@ -99,14 +99,12 @@ export const HeroSlider = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
 
                     {slide.primaryCta === "Apply Now" && (
-                      <a
-                        href="https://form.jotform.com/253171134791556"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href="/get-started"
                         className="bg-accent hover:bg-accent/90 text-white px-5 py-2.5 rounded-full font-medium text-center shadow-md text-sm sm:text-base"
                       >
                         {slide.primaryCta}
-                      </a>
+                      </Link>
                     )}
 
                     {slide.primaryCta === "Discover Our Courses" && (
@@ -165,15 +163,13 @@ export const HeroSlider = () => {
 
                 {(slide.primaryCta || slide.secondaryCta) && (
                   <div className="flex flex-row gap-4 flex-wrap">
-                    {slide.primaryCta === "Join Africana Today" && (
-                      <a
-                        href="https://form.jotform.com/253171134791556"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {slide.primaryCta === "Apply Now" && (
+                      <Link
+                        href="/get-started"
                         className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-medium text-center shadow-md"
                       >
                         {slide.primaryCta}
-                      </a>
+                      </Link>
                     )}
 
                     {slide.primaryCta === "Discover Our Courses" && (
@@ -183,18 +179,6 @@ export const HeroSlider = () => {
                       >
                         {slide.primaryCta}
                       </Link>
-                    )}
-
-                    {/* ⬇️ UPDATED — NOW OPEN JOTFORM IN NEW TAB */}
-                    {slide.primaryCta === "Apply Now" && (
-                      <a
-                        href="https://form.jotform.com/253171134791556"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-medium text-center shadow-md"
-                      >
-                        {slide.primaryCta}
-                      </a>
                     )}
 
                     {slide.secondaryCta === "Explore Courses" && (

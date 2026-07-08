@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/wp-content/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'acopcms.ifree.page',
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
       // Add Gravatar for author avatars
       {
         protocol: 'https',
@@ -35,8 +41,7 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/avatar/**',
       },
-    ],
-     domains: ['cms.acop.co.ke'],
+    ]
   },
   
 };

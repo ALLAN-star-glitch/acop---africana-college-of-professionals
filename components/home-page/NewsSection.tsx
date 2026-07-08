@@ -170,34 +170,33 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
             })}
           </div>
 
-          {/* PROMO CARD */}
-          <div className="bg-linear-to-br from-accent to-accent/80 rounded-xl shadow-md overflow-hidden text-white p-6 flex flex-col items-center text-center gap-6">
-            <div>
-              <h3 className="font-playfair text-2xl font-bold mb-4">
-                🎓 January 2026 Intake - Now Open!
-              </h3>
-              <p className="mb-6">Start Your Purpose Journey with Africana.</p>
-            </div>
-
-            <div className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden">
-              <Image
-                src="/may-intake.jpg"
-                alt="Promotional Banner Image"
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-
-            <Link
-              href="https://form.jotform.com/253171134791556"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-primary hover:bg-lavender px-8 py-3 rounded-full font-medium transition-colors"
-            >
-              Apply Now
-            </Link>
-          </div>
+        {/* PROMO CARD - Image with Bottom Fading Overlay and Primary Color Button */}
+<Link
+  href="/get-started"
+  className="block rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-full relative group"
+>
+  <div className="relative w-full h-full min-h-[400px] md:min-h-[500px]">
+    <Image
+      src="/Septemberintake2026.webp"
+      alt="September 2026 Intake - Apply Now"
+      fill
+      className="object-cover"
+      unoptimized
+      priority
+    />
+    
+    {/* Small fading overlay at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-accent/90 via-accent/50 to-transparent pointer-events-none" />
+    
+    {/* Primary Color Button on the overlay */}
+    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 w-full px-4 flex justify-center pointer-events-none">
+      <span className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 pointer-events-auto">
+        Apply Now 🎓
+        <span className="text-lg">→</span>
+      </span>
+    </div>
+  </div>
+</Link>
         </div>
       </div>
 

@@ -374,7 +374,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               <div className="bg-gradient-to-r from-orange-600 to-purple-600 rounded-xl p-6 text-white text-center">
                 <h3 className="text-xl font-bold mb-3">Ready to Enroll?</h3>
                 <p className="text-white/80 text-sm mb-4">Take the first step towards your professional career</p>
-                <Link href="https://form.jotform.com/253171134791556" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full">
+                <Link href="/get-started" className="inline-block bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors w-full">
                   Apply Now
                 </Link>
               </div>
