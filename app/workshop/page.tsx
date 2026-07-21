@@ -12,6 +12,9 @@ interface WorkshopPageProps {
   }>;
 }
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 // Default workshop details - easily updateable
 const DEFAULT_WORKSHOP = {
   title: "Teachers' Mindful Self-Compassion Online Workshop",

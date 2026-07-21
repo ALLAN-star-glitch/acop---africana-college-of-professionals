@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 60
+export const revalidate = 2592000
 
 export default async function Home() {
   const allNews = await getAllNews()
