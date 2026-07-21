@@ -38,8 +38,8 @@ export async function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }))
 }
 
-// Enable ISR - revalidate every 60 seconds
-export const revalidate = 604800
+// Enable ISR - revalidate every 1 month
+export const revalidate = 2592000
 
 // Helper to get category display name
 function getCategoryDisplayName(categories: { name: string; slug: string }[] | undefined): string {

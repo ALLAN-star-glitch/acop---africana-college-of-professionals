@@ -14,8 +14,8 @@ export async function generateStaticParams() {
   return courses.map((course) => ({ slug: course.slug }));
 }
 
-// Enable ISR - revalidate every  1 week
-export const revalidate = 604800;
+// Enable ISR - revalidate every  1 month
+export const revalidate = 2592000;
 
 // Helper to convert YouTube URL to embed URL
 const getYouTubeEmbedUrl = (url: string | null | undefined): string | null => {

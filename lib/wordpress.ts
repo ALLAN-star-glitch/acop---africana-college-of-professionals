@@ -190,7 +190,7 @@ async function fetchAPI<T>(
       query,
       variables,
     }),
-    next: { revalidate: 604800 }, // 1 week 
+    next: { revalidate: 2592000 }, // 1 month 
   });
 
   const json = await res.json();

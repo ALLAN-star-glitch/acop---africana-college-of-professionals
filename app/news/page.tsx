@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
 }
 
-// Enable ISR - revalidate every 1 week 
-export const revalidate = 604800
+// Enable ISR - revalidate every 1 month 
+export const revalidate = 2592000
 
 // Helper function to clean excerpt (strip HTML tags and decode entities)
 const cleanExcerpt = (text: string | null | undefined, maxLength: number = 150): string => {

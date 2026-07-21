@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { SidebarFilter } from '@/components/SidebarFilter';
 import { ShareButtons } from '@/components/ShareButtons';
 
-export const revalidate = 604800; // 1 week
+export const revalidate = 2592000; // 1 month
 
 export const metadata: Metadata = {
   title: "Professional Courses in Kenya | Africana College of Professionals",
