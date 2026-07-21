@@ -14,15 +14,19 @@ interface WorkshopWrapperProps {
   workshopTime?: string;
   facilitator?: string;
   coordinator?: string;
+  slug?: string;
+  agendaItems?: string[];
 }
 
 export default function WorkshopWrapper({
   meetingLink,
   workshopTitle = 'Workshop',
-  workshopDate = '20th - 22nd July 2026',
-  workshopTime = '6:00 p.m. - 8:00 p.m. (EAT)',
+  workshopDate = 'Date TBD',
+  workshopTime = 'Time TBD',
   facilitator = 'Dr. Susan Gitau',
   coordinator = 'Alice Songok',
+  slug,
+  agendaItems = [],
 }: WorkshopWrapperProps) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,9 +51,6 @@ export default function WorkshopWrapper({
           setTimeRemaining(60);
         } else {
           setIsAuthenticated(false);
-          if (data.redirect) {
-            router.push('/workshop');
-          }
         }
       } catch (error) {
         console.error('Auth check failed:', error);
@@ -60,7 +61,7 @@ export default function WorkshopWrapper({
     };
 
     checkAuth();
-  }, [router]);
+  }, []);
 
   // Countdown timer
   useEffect(() => {
@@ -68,7 +69,6 @@ export default function WorkshopWrapper({
 
     const timer = setInterval(() => {
       setTimeRemaining((prev) => {
-        // Show modal when 15 seconds remaining
         if (prev === 15 && !showModal && extendCount < 3) {
           setShowModal(true);
         }
@@ -120,7 +120,7 @@ export default function WorkshopWrapper({
       setIsAuthenticated(false);
       setShowModal(false);
       setTimeRemaining(0);
-      router.push('/workshop');
+      router.refresh();
     }
   };
 
@@ -159,7 +159,7 @@ export default function WorkshopWrapper({
       setIsAuthenticated(false);
       setShowModal(false);
       setTimeRemaining(0);
-      router.push('/workshop');
+      router.refresh();
     }
   };
 
@@ -185,7 +185,6 @@ export default function WorkshopWrapper({
   if (isAuthenticated) {
     return (
       <>
-        {/* Access Expiry Modal */}
         {showModal && (
           <SessionModal
             timeRemaining={timeRemaining}
@@ -197,7 +196,6 @@ export default function WorkshopWrapper({
           />
         )}
 
-        {/* Timer in Corner */}
         <div className="fixed bottom-4 right-4 bg-white rounded-xl shadow-lg p-3 border border-gray-200 z-40">
           <div className="flex items-center gap-3">
             <div className={`w-2 h-2 rounded-full ${timeRemaining > 30 ? 'bg-green-500' : timeRemaining > 15 ? 'bg-yellow-500' : 'bg-red-500 animate-pulse'}`} />
@@ -223,5 +221,13 @@ export default function WorkshopWrapper({
     );
   }
 
-  return <WorkshopLogin onSuccess={handleLoginSuccess} workshopTitle={workshopTitle} />;
+  return (
+    <WorkshopLogin 
+      onSuccess={handleLoginSuccess} 
+      workshopTitle={workshopTitle}
+      workshopDate={workshopDate}
+      workshopTime={workshopTime}
+      agendaItems={agendaItems}
+    />
+  );
 }

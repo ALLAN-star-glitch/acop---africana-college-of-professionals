@@ -62,11 +62,14 @@ export interface Attachment {
 export interface NewsMetadata {
   newsType: string[];
   body: string;
-  eventDate: string | null;       // Start date - from Date Picker (F j, Y format)
-  eventenddate: string | null;    // NEW: End date - from Date Picker (F j, Y format) - optional
-  eventTime: string | null;       // From Time Picker (g:i A format)
+  eventDate: string | null;
+  eventenddate: string | null;
+  eventTime: string | null;
   eventVenue: string | null;
   eventLink: string | null;
+  eventType: string | null;       // NEW
+  facilitator: string | null;     // NEW
+  programCoordinator: string | null;     // NEW
   deadlineDate: string | null;
   submissionLink: string | null;
   severityLevel: string | null;
@@ -449,6 +452,9 @@ export async function getAllNews(): Promise<NewsArticle[]> {
             eventTime
             eventVenue
             eventLink
+            eventType
+            facilitator
+            programCoordinator
             deadlineDate
             submissionLink
             severityLevel
@@ -528,6 +534,9 @@ export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
           eventTime
           eventVenue
           eventLink
+          eventType
+          facilitator
+          programCoordinator
           deadlineDate
           submissionLink
           severityLevel

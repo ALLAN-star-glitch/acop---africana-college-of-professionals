@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronRight, Newspaper, PenTool } from 'lucide-react';
+import { Menu, X, ChevronRight, Newspaper, PenTool, CalendarDays } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -200,25 +200,37 @@ export const MainHeader = ({ hasRecentNews = false }: MainHeaderProps) => {
 
             {/* Action Buttons - Both visible on all devices */}
             <div className="flex items-center space-x-2 sm:space-x-3">
-              {/* Become an Author Button - Visible on all devices */}
-              <Link
-                href="/become-an-author"
-                className="inline-flex items-center justify-center px-2 sm:px-4 py-1.5 sm:py-2 bg-transparent border border-primary text-primary font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:scale-105 active:scale-100 group whitespace-nowrap"
-                onClick={() => setMobileMenuOpen(false)}
+              {/* Workshops Button - Animated with Zoom */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
               >
-                <PenTool className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="text-xs sm:text-sm whitespace-nowrap">Become an Author</span>
-              </Link>
+                <Link
+                  href="/workshops"
+                  className="inline-flex items-center justify-center px-2 sm:px-4 py-1.5 sm:py-2 bg-transparent border border-primary text-primary font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 active:scale-100 group whitespace-nowrap"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className="text-xs sm:text-sm whitespace-nowrap">Workshops</span>
+                </Link>
+              </motion.div>
 
               {/* Get Started Button - Visible on all devices */}
-              <Link
-                href="/get-started"
-                className="inline-flex items-center justify-center px-2 sm:px-4 md:px-5 py-1.5 sm:py-2 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:scale-105 active:scale-100 group whitespace-nowrap"
-                onClick={() => setMobileMenuOpen(false)}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
               >
-                <span className="text-xs sm:text-sm md:text-base whitespace-nowrap">Get Started</span>
-                <ChevronRight className="hidden sm:block ml-1 w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </Link>
+                <Link
+                  href="/get-started"
+                  className="inline-flex items-center justify-center px-2 sm:px-4 md:px-5 py-1.5 sm:py-2 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 active:scale-100 group whitespace-nowrap"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="text-xs sm:text-sm md:text-base whitespace-nowrap">Get Started</span>
+                  <ChevronRight className="hidden sm:block ml-1 w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                </Link>
+              </motion.div>
 
               {/* Mobile Menu Button */}
               <button

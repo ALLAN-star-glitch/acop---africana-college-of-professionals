@@ -9,6 +9,7 @@ import {
   PhoneIcon,
   MailIcon,
   ShieldCheckIcon,
+  PenTool,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -91,7 +92,7 @@ export const Footer = () => {
                     Contact
                   </Link>
                 </li>
-                {/* Certificate Verification Link - NEW */}
+                {/* Certificate Verification Link */}
                 <li>
                   <Link
                     href="/verify"
@@ -99,6 +100,16 @@ export const Footer = () => {
                   >
                     <ShieldCheckIcon size={16} />
                     Verify Certificate
+                  </Link>
+                </li>
+                {/* Become an Author Link - NEW */}
+                <li>
+                  <Link
+                    href="/become-an-author"
+                    className="text-white/80 hover:text-accent flex items-center gap-2"
+                  >
+                    <PenTool size={16} />
+                    Become an Author
                   </Link>
                 </li>
                 <li>
@@ -113,7 +124,7 @@ export const Footer = () => {
                     CMS Portal
                   </Link>
                 </li>
-                {/* ACOP CRM - New Menu Item */}
+                {/* ACOP CRM */}
                 <li>
                   <a
                     href="https://app-eu1.hubspot.com/"

@@ -30,9 +30,28 @@ function getCategoryDisplayName(categories: { name: string; slug: string }[] | u
   return displayNames[categoryName.toLowerCase()] || categoryName
 }
 
+// Helper to get event type display
+function getEventTypeDisplay(type: string | null): { label: string; color: string } {
+  const types: Record<string, { label: string; color: string }> = {
+    workshop: { label: 'Workshop', color: 'bg-purple-600' },
+    seminar: { label: 'Seminar', color: 'bg-blue-600' },
+    conference: { label: 'Conference', color: 'bg-orange-600' },
+    webinar: { label: 'Webinar', color: 'bg-green-600' },
+    training: { label: 'Training', color: 'bg-red-600' },
+    other: { label: 'Event', color: 'bg-gray-600' },
+  }
+  return types[type || 'other'] || types.other
+}
+
 export function NewsCard({ article }: NewsCardProps) {
   const featuredImageUrl = article.featuredImage?.node?.sourceUrl || null
   const categoryName = getCategoryDisplayName(article.newsCategories?.nodes)
+  const isEvent = article.newsMetadata?.newsType?.includes('event')
+  const eventType = article.newsMetadata?.eventType || null
+  const eventTypeDisplay = eventType ? getEventTypeDisplay(eventType) : null
+
+  // Determine the link path based on whether it's an event or regular news
+  const linkPath = isEvent ? `/workshops/${article.slug}` : `/news/${article.slug}`
 
   return (
     <article className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
@@ -45,6 +64,14 @@ export function NewsCard({ article }: NewsCardProps) {
             className="object-cover"
             unoptimized
           />
+          {/* Event Type Badge - only for events */}
+          {isEvent && eventTypeDisplay && (
+            <div className="absolute top-3 right-3">
+              <span className={`text-xs font-semibold text-white px-2.5 py-1 rounded-full ${eventTypeDisplay.color}`}>
+                {eventTypeDisplay.label}
+              </span>
+            </div>
+          )}
         </div>
       )}
       <div className="p-5">
@@ -52,7 +79,7 @@ export function NewsCard({ article }: NewsCardProps) {
           {categoryName}
         </span>
         <h3 className="text-xl font-bold text-gray-800 mt-2 mb-2 line-clamp-2">
-          <Link href={`/news/${article.slug}`} className="hover:text-orange-600">
+          <Link href={linkPath} className="hover:text-orange-600">
             {article.title}
           </Link>
         </h3>
@@ -61,7 +88,7 @@ export function NewsCard({ article }: NewsCardProps) {
         </p>
         <div className="flex items-center justify-between text-xs text-gray-400">
           <span>{formatDate(article.date)}</span>
-          <Link href={`/news/${article.slug}`} className="text-orange-600 font-medium">
+          <Link href={linkPath} className="text-orange-600 font-medium">
             Read More →
           </Link>
         </div>
