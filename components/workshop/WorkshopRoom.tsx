@@ -125,7 +125,7 @@ const WorkshopRoom = ({
         <div className="mt-8 bg-white rounded-2xl shadow-xl p-6">
           <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-orange-500" />
-            Workshop Details
+            Workshop  Details
           </h3>
           <div className="space-y-3 text-sm text-gray-600">
             <p>
