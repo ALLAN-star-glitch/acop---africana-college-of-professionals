@@ -56,14 +56,14 @@ export async function generateMetadata({
 
   return {
     title: `${workshopTitle} (${eventTypeDisplay.label}) | Workshop Access | Africana College of Professionals`,
-    description: `Access the ${workshopTitle} workshop session.`,
+    description: `Access the ${workshopTitle} workshop session. This page is password-protected to prevent unauthorized access to the Zoom meeting link.`,
     robots: 'index, follow',
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
       title: `${workshopTitle} (${eventTypeDisplay.label}) | Africana College of Professionals`,
-      description: `Access the workshop session. ${workshopTitle}.`,
+      description: `Access the workshop session. ${workshopTitle}. Password protection ensures the Zoom meeting link is only accessible to registered participants.`,
       url: pageUrl,
       siteName: 'Africana College of Professionals',
       type: 'website',
@@ -72,7 +72,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: `${workshopTitle} (${eventTypeDisplay.label}) | Africana College of Professionals`,
-      description: `Access your workshop session.`,
+      description: `Access your workshop session. Password-protected for security.`,
       images: [ogImageUrl],
     },
   };
@@ -144,7 +144,7 @@ export default async function WorkshopAccessPage({
     '@context': 'https://schema.org',
     '@type': 'EducationalEvent',
     name: workshopTitle,
-    description: `Access the ${workshopTitle} workshop session for registered participants.`,
+    description: `Access the ${workshopTitle} workshop session for registered participants. Password required for security.`,
     startDate: workshopDate,
     endDate: workshopEndDate || workshopDate,
     organizer: {

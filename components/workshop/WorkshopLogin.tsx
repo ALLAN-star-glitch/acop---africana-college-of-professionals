@@ -27,8 +27,6 @@ const WorkshopLogin = ({
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
-  console.log('🔍 [Login] FeaturedImage received:', featuredImage);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -59,16 +57,16 @@ const WorkshopLogin = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-orange-50 flex items-center justify-center py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-orange-50 flex items-center justify-center py-4 px-4">
       <div className="w-full max-w-md">
-        {/* Workshop Featured Image - Using regular img tag */}
-        <div className="text-center mb-4">
-          <div className="flex justify-center mb-3">
+        {/* Workshop Featured Image - Smaller */}
+        <div className="text-center mb-3">
+          <div className="flex justify-center mb-2">
             {featuredImage ? (
-              <div className="relative w-full max-w-xs h-36 rounded-xl overflow-hidden shadow-lg bg-gray-100">
+              <div className="relative w-full max-w-xs h-28 rounded-xl overflow-hidden shadow-lg bg-gray-100">
                 {imageLoading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-100 animate-pulse">
-                    <ImageIcon className="w-10 h-10 text-gray-300" />
+                    <ImageIcon className="w-8 h-8 text-gray-300" />
                   </div>
                 )}
                 <img
@@ -77,31 +75,26 @@ const WorkshopLogin = ({
                   className={`w-full h-full object-cover transition-opacity duration-500 ${
                     imageLoading ? 'opacity-0' : 'opacity-100'
                   }`}
-                  onLoad={() => {
-                    console.log('✅ [Login] Image loaded successfully');
-                    setImageLoading(false);
-                  }}
-                  onError={() => {
-                    console.error('❌ [Login] Image failed to load');
-                    setImageLoading(false);
-                  }}
+                  onLoad={() => setImageLoading(false)}
+                  onError={() => setImageLoading(false)}
                 />
               </div>
             ) : (
-              <div className="w-full max-w-xs h-36 bg-gradient-to-r from-purple-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white text-3xl font-bold">📅</span>
+              <div className="w-full max-w-xs h-28 bg-gradient-to-r from-purple-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white text-2xl font-bold">📅</span>
               </div>
             )}
           </div>
-          <h1 className="text-xl font-bold text-gray-800">Workshop Access</h1>
+          <h1 className="text-lg font-bold text-gray-800">Workshop Zoom Link Access</h1>
           <p className="text-gray-600 text-xs mt-0.5">
-            Enter the password to access the workshop
+            Enter the password to access the zoom link. 
           </p>
         </div>
 
-        {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6">
-          <div className="flex items-center gap-2 mb-4">
+        {/* Login Card - Smaller padding */}
+        <div className="bg-white rounded-2xl shadow-xl p-5">
+
+          <div className="flex items-center gap-2 mb-3">
             <div className="p-1.5 rounded-full bg-purple-100">
               <LockKeyhole className="w-4 h-4 text-purple-600" />
             </div>
@@ -166,10 +159,19 @@ const WorkshopLogin = ({
                 'Access Workshop'
               )}
             </button>
+             {/* Password Protection Notice - Smaller */}
+          <div className="mb-3 p-2.5 bg-yellow-50 border border-yellow-200 rounded-xl">
+            <p className="text-xs text-yellow-800 flex items-start gap-2">
+              <span className="text-yellow-500 text-base">🔒</span>
+              <span>
+                <strong>Password Protected:</strong> The password is required to access the Zoom meeting link and protect it from unauthorized access.
+              </span>
+            </p>
+          </div>
           </form>
 
           {agendaItems.length > 0 && (
-            <div className="mt-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 text-left border border-purple-100 shadow-sm">
+            <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 text-left border border-purple-100 shadow-sm">
               <p className="text-xs font-semibold text-purple-700 mb-1.5 flex items-center gap-2">
                 <Calendar className="w-3 h-3" />
                 Today&apos;s Agenda
@@ -186,10 +188,7 @@ const WorkshopLogin = ({
             </div>
           )}
 
-          <div className="mt-4 text-center">
-            <p className="text-xs text-gray-500">
-              This workshop is for registered participants only.
-            </p>
+          <div className="mt-3 text-center">
             <p className="text-xs text-gray-400 mt-1">
               Need help? Contact{' '}
               <a href="mailto:info@acop.co.ke" className="text-purple-600 hover:underline cursor-pointer">
@@ -199,7 +198,7 @@ const WorkshopLogin = ({
           </div>
         </div>
 
-        <div className="mt-4 text-center">
+        <div className="mt-3 text-center">
           <div className="inline-flex items-center gap-2 text-xs text-gray-500">
             <ShieldCheck className="w-3 h-3 text-green-500" />
             <span>Secure &amp; Encrypted Access</span>
