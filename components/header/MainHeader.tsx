@@ -212,7 +212,7 @@ export const MainHeader = ({ hasRecentNews = false }: MainHeaderProps) => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                  <span className="text-xs sm:text-sm whitespace-nowrap">Workshops</span>
+                  <span className="text-xs sm:text-sm whitespace-nowrap">Workshop</span>
                 </Link>
               </motion.div>
 
