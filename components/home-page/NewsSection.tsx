@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaLinkedin, FaInstagram, FaYoutube, FaPlay } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaYoutube, FaPlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { SiX } from "react-icons/si";
 import Link from "next/link";
 import { formatDate, getNewsTypeDisplayName, NewsArticle, decodeHtmlEntities } from "@/lib/wordpress";
@@ -23,6 +23,30 @@ const cleanExcerpt = (text: string | null | undefined, maxLength: number = 100):
 
 export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
   const [open, setOpen] = useState(false);
+  const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
+
+  // Array of images for the promo card carousel
+  const promoImages = [
+    { src: "/acopseptember.jpeg", alt: "Campus Highlights" },
+    { src: "/Septemberintake2026.webp", alt: "September 2026 Intake - Apply Now" },
+  ];
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPromoIndex((prev) => (prev + 1) % promoImages.length);
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [promoImages.length]);
+
+  const nextPromoImage = () => {
+    setCurrentPromoIndex((prev) => (prev + 1) % promoImages.length);
+  };
+
+  const prevPromoImage = () => {
+    setCurrentPromoIndex((prev) => (prev - 1 + promoImages.length) % promoImages.length);
+  };
 
   return (
     <section className="py-16 bg-lavender">
@@ -117,14 +141,12 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
             </div>
           </div>
 
-          {/* NEWS CARDS - CORRECTED TO USE ROOT LEVEL FIELDS */}
+          {/* NEWS CARDS */}
           <div className="space-y-6">
             {newsArticles.map((article) => {
-              // ✅ Use root level fields (not metadata)
               const featuredImage = article.featuredImage?.node?.sourceUrl || null;
               const newsType = getNewsTypeDisplayName(article.newsMetadata?.newsType || []);
               
-              // ✅ Use root level excerpt or generate from body
               const excerpt = article.excerpt 
                 ? cleanExcerpt(article.excerpt, 100)
                 : cleanExcerpt(article.newsMetadata?.body || '', 100);
@@ -170,33 +192,76 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
             })}
           </div>
 
-        {/* PROMO CARD - Image with Bottom Fading Overlay and Primary Color Button */}
-<Link
-  href="/get-started"
-  className="block rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-full relative group"
->
-  <div className="relative w-full h-full min-h-[400px] md:min-h-[500px]">
-    <Image
-      src="/Septemberintake2026.webp"
-      alt="September 2026 Intake - Apply Now"
-      fill
-      className="object-cover"
-      unoptimized
-      priority
-    />
-    
-    {/* Small fading overlay at bottom */}
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-accent/90 via-accent/50 to-transparent pointer-events-none" />
-    
-    {/* Primary Color Button on the overlay */}
-    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 w-full px-4 flex justify-center pointer-events-none">
-      <span className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 pointer-events-auto">
-        Apply Now 🎓
-        <span className="text-lg">→</span>
-      </span>
-    </div>
-  </div>
-</Link>
+          {/* PROMO CARD WITH AUTO-SCROLL CAROUSEL */}
+          <Link
+            href="/get-started"
+            className="block rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-full relative group"
+          >
+            <div className="relative w-full h-full min-h-[400px] md:min-h-[500px]">
+              <Image
+                src={promoImages[currentPromoIndex].src}
+                alt={promoImages[currentPromoIndex].alt}
+                fill
+                className="object-cover transition-opacity duration-500"
+                unoptimized
+                priority
+              />
+              
+              {/* Navigation Arrows */}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  prevPromoImage();
+                }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-20 opacity-0 group-hover:opacity-100"
+                aria-label="Previous image"
+              >
+                <FaChevronLeft size={18} />
+              </button>
+              
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  nextPromoImage();
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-20 opacity-0 group-hover:opacity-100"
+                aria-label="Next image"
+              >
+                <FaChevronRight size={18} />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                {promoImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCurrentPromoIndex(index);
+                    }}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentPromoIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
+                    }`}
+                    aria-label={`Go to image ${index + 1}`}
+                  />
+                ))}
+              </div>
+              
+              {/* Small fading overlay at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-accent/90 via-accent/50 to-transparent pointer-events-none" />
+              
+              {/* Primary Color Button on the overlay */}
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 w-full px-4 flex justify-center pointer-events-none">
+                <span className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 pointer-events-auto">
+                  Apply Now 🎓
+                  <span className="text-lg">→</span>
+                </span>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
